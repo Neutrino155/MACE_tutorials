@@ -33,27 +33,11 @@ Open a notebook from [`MACE_advanced/`](MACE_advanced/) when you are ready for m
 
 ## Lennard-Jones Centre summer school
 
-These materials support the Lennard-Jones Centre and Thomas Young Centre Summer School on Atomic-Scale Modelling, held in Cambridge from **28 September to 2 October 2026**. The tutorial session is on **Thursday 1 October, 14:00–17:00**. Bradley Martin, Joe Hart and Isaac Parker will lead the session together, including MACE Practice I and II. Advanced notebooks are optional material for early finishers. Bradley will lead the MACE extensions segment on his own for approximately the final 45 minutes.
-
-**People involved:** Bradley Martin, Isaac Parker and Joe Hart. They will teach the practical notebooks together; the MACE extensions discussion is Bradley's individual segment.
-
-**Introductory slides:** [MACE in practice — LJC Summer School](https://docs.google.com/presentation/d/1LzDnWMp7qsf1ujuK5L8gjd2XYRywSiGsmZi62YMFEtk/edit)
-
-| Time | Activity | Facilitation |
-|---|---|---|
-| 14:00–14:50 | MACE Practice I: data, fitting and evaluation | Bradley Martin, Joe Hart and Isaac Parker |
-| 14:50–15:00 | Break · 10 min | — |
-| 15:00–15:50 | MACE Practice II: iterative training and active learning | Bradley Martin, Joe Hart and Isaac Parker |
-| 15:50–16:00 | Break · 10 min | — |
-| 16:00–16:05 | Questions and transition; advanced notebooks remain optional self-study | All three |
-| 16:05–16:50 | MACE extensions: MACEField walkthrough and selected comparisons | Bradley Martin · solo segment |
-| 16:50–17:00 | Break and close · 10 min | All three |
-
-The extension segment will use MACEField as the lead example, followed by brief comparisons with dipole, magnetic and long-range electrostatic adaptations. The full extension notebook set is available in the folder above.
+These materials support the Lennard-Jones Centre and Thomas Young Centre Summer School on Atomic-Scale Modelling, held in Cambridge from **28 September to 2 October 2026**. The tutorial session is on **Thursday 1 October, 14:00–17:00**, led by Bradley Martin, Joe Hart and Isaac Parker.
 
 ## Notebook credits and provenance
 
-The notebooks in this repository are the workshop materials; use the links above to navigate between them without needing another tutorial collection. The [MACE Theory notebook](MACE_advanced/T03-MACE-Theory.ipynb) credits **Will Baldwin** as its developer and identifies **Ilyes Batatia’s** developer tutorial as its basis. The source notebooks for Practice I, Practice II, and the two advanced application examples do not currently include an individual author statement. This README does not infer authorship where the notebook itself does not state it. Bradley Martin, Isaac Parker and Joe Hart are the people involved in teaching this session.
+The notebooks in this repository are the workshop materials; use the links above to navigate between them without needing another tutorial collection. The source notebooks for Practice I, Practice II, the two advanced application examples, and the [MACE Theory notebook](MACE_advanced/T03-MACE-Theory.ipynb) were made by Ioan Magdău, Ilyes Batatia and Will Baldwin, and further refined by Ioan Magdău and Alin Elena. 
 
 ## Running the notebooks
 
