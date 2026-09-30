@@ -3,21 +3,16 @@ from __future__ import annotations
 
 import importlib.util
 import os
-import re
 import shutil
-import site
 import subprocess
 import sys
 import zipfile
-import ctypes
 from pathlib import Path
 
 
 TUTORIAL_URL = "https://github.com/Neutrino155/MACE_tutorials.git"
 MACEFIELD_URL = "https://github.com/mdi-group/mace-field.git"
 MAGNETIC_SOURCE_COMMIT = "1bd205048383a0cae6982cccd687e1837aea717a"
-_CUDA_LIBRARY_HANDLES: list[ctypes.CDLL] = []
-_CUDA_LIBRARY_DIRS: set[Path] = set()
 
 
 def _is_colab() -> bool:
@@ -107,74 +102,6 @@ def _extract_teaching_models(tutorial: Path) -> Path:
     return model_root
 
 
-def _torch_cuda_version() -> str | None:
-    """Read Torch's CUDA build tag without importing Torch into the kernel."""
-    try:
-        spec = importlib.util.find_spec("torch")
-    except (ImportError, ValueError):
-        return None
-    if not spec or not spec.submodule_search_locations:
-        return None
-    for package_root in spec.submodule_search_locations:
-        version_file = Path(package_root) / "version.py"
-        if not version_file.is_file():
-            continue
-        match = re.search(r"^cuda(?:\s*:\s*Optional\[str\])?\s*=\s*['\"]([^'\"]+)",
-                          version_file.read_text(encoding="utf-8"), re.MULTILINE)
-        if match:
-            return match.group(1)
-    return None
-
-
-def _prepare_cuda_runtime() -> Path | None:
-    """Expose bundled NVRTC libraries to TorchScript JIT kernels.
-
-    CUDA-enabled PyTorch wheels ship NVRTC and its built-ins below
-    ``site-packages/nvidia/*/lib``. The NVRTC library may fail to locate its
-    companion built-ins when a system CUDA directory takes precedence in
-    ``LD_LIBRARY_PATH``. Preloading the matching pair fixes CUDA force and
-    response derivatives in an already-running Jupyter kernel; prepending the
-    path also gives training subprocesses the same libraries.
-    """
-    cuda_version = _torch_cuda_version()
-    if not cuda_version:
-        return None
-    major, _, minor = cuda_version.partition(".")
-    package_roots = {Path(path).expanduser() for path in site.getsitepackages()}
-    package_roots.update(Path(path).expanduser() for path in sys.path if path)
-    library_dirs = {
-        path.resolve()
-        for package_root in package_roots
-        for path in (package_root / "nvidia").glob("*/lib")
-        if path.is_dir()
-    }
-    expected_builtins = f"libnvrtc-builtins.so.{major}.{minor}"
-    expected_nvrtc = f"libnvrtc.so.{major}"
-    selected = next(
-        (
-            library_dir
-            for library_dir in sorted(library_dirs)
-            if (library_dir / expected_builtins).is_file()
-            and (library_dir / expected_nvrtc).is_file()
-        ),
-        None,
-    )
-    if selected is None:
-        return None
-
-    current_entries = os.environ.get("LD_LIBRARY_PATH", "").split(os.pathsep)
-    if str(selected) not in current_entries:
-        os.environ["LD_LIBRARY_PATH"] = os.pathsep.join(
-            [str(selected), *(entry for entry in current_entries if entry)]
-        )
-    mode = ctypes.RTLD_GLOBAL
-    if selected not in _CUDA_LIBRARY_DIRS:
-        _CUDA_LIBRARY_HANDLES.append(ctypes.CDLL(str(selected / expected_builtins), mode=mode))
-        _CUDA_LIBRARY_HANDLES.append(ctypes.CDLL(str(selected / expected_nvrtc), mode=mode))
-        _CUDA_LIBRARY_DIRS.add(selected)
-    return selected
-
-
 def setup(feature: str = "base") -> dict[str, Path | str]:
     """Set source/data paths, install Colab requirements, and return model paths."""
     if feature not in {"base", "magnetic", "les"}:
@@ -200,10 +127,5 @@ def setup(feature: str = "base") -> dict[str, Path | str]:
         "les_model": models / "models/maceles/MACELES-toy.model",
         "les_local_control": models / "models/maceles_short_range/MACELES-short-range-control.model",
     }
-    cuda_library_dir = _prepare_cuda_runtime()
-    if cuda_library_dir:
-        output["cuda_nvrtc_library_dir"] = cuda_library_dir
     print(f"MACE-Field source: {source} · Colab: {_is_colab()}")
-    if cuda_library_dir:
-        print(f"CUDA NVRTC libraries prepared from: {cuda_library_dir}")
     return output

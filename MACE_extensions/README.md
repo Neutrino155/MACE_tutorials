@@ -2,7 +2,7 @@
 
 This folder contains a theory overview and runnable examples showing several ways to adapt a MACE model for different physical inputs, outputs and interactions. It is written for first-year PhD students in computational chemistry and supports the Lennard-Jones Centre and Thomas Young Centre Summer School on Atomic-Scale Modelling.
 
-The **main workshop** is the hands-on route in [`../MACE_in_practice_I/`](../MACE_in_practice_I/) and [`../MACE_in_practice_II/`](../MACE_in_practice_II/). Students who are ready for more can choose a notebook from [`../MACE_advanced/`](../MACE_advanced/). The extension examples make up a **30–45 minute demonstration near the end** of the Thursday 1 October 2026 session (14:00–17:00). MACEField is the lead example, followed by selected short comparisons with the other adaptations.
+The **main workshop** is the hands-on route in [`../MACE_in_practice_I/`](../MACE_in_practice_I/) and [`../MACE_in_practice_II/`](../MACE_in_practice_II/), taught together by Bradley Martin, Joe Hart and Isaac Parker. Students who are ready for more can choose a notebook from [`../MACE_advanced/`](../MACE_advanced/). Bradley leads the extension examples individually as a **30–45 minute demonstration near the end** of the Thursday 1 October 2026 session (14:00–17:00), with a ten-minute break each hour. MACEField is the lead example, followed by selected short comparisons with the other adaptations.
 
 ## Start with the notebooks in this repository
 
@@ -24,26 +24,10 @@ Then use the extension notebooks as a guided comparison. You do not need to run 
 
 T00 is a compact map for discussion. T01 is the first detailed example and the central live demonstration; the remaining examples can be introduced briefly or explored later according to the group’s interests.
 
-## Session plan · Thursday 1 October 2026
-
-Bradley Martin, Joe Hart and Isaac Parker teach the three-hour session together, including both core practice notebooks. Advanced notebooks are optional material for early finishers. Bradley presents the MACE extensions individually for approximately the final 45 minutes. A ten-minute break falls at the end of each hour.
-
-| Time | Activity | Facilitation |
-|---|---|---|
-| 14:00–14:50 | MACE Practice I: inspect data, fit and evaluate a model | Bradley Martin, Joe Hart and Isaac Parker |
-| 14:50–15:00 | Break · 10 min | — |
-| 15:00–15:50 | MACE Practice II: iterative training and active learning | Bradley Martin, Joe Hart and Isaac Parker |
-| 15:50–16:00 | Break · 10 min | — |
-| 16:00–16:05 | Questions and transition; advanced notebooks remain optional self-study | All three |
-| 16:05–16:50 | MACE extensions: MACEField walkthrough and selected comparisons | Bradley Martin · solo segment |
-| 16:50–17:00 | Break and close · 10 min | All three |
-
-**Workshop team:** Bradley Martin, Isaac Parker and Joe Hart. The team teaches the practical route together; Bradley leads the extension segment individually. The four detailed extension notebooks are reference material for follow-up study.
-
 ## Repository map
 
 - `T00`–`T04` are notebooks. The theory overview contains the architecture comparison; each model notebook explains the adaptation, implementation path, training data and diagnostics.
-- `figures/` contains the baseline architecture and adaptation diagrams. The diagrams are embedded in the notebooks so they render in Jupyter and Colab without loading local image paths.
+- `figures/` contains the original MACE architecture image and four adapted architecture diagrams. Each PNG integrates the extension input, operation or output into the original MACE data flow. Notebooks load these images by relative path.
 - `data/` contains deterministic analytic training and validation examples in ExtXYZ format. See [`data/README.md`](data/README.md) for labels, units and limitations.
 - `models/pretrained_models.zip` contains small demonstration checkpoints for the AtomicDipolesMACE, Magnetic MACE and MACELES examples. T01 trains its MACEField model from the included toy data.
 - `scripts/` contains Colab/local setup, the structure viewer, deterministic data generation, model-specific training commands and the MACEField surface audit.
@@ -53,7 +37,7 @@ The structure views used in T01–T04 are a notebook-focused adaptation of the i
 
 ## Running the notebooks
 
-Open a notebook in Jupyter or use its **Open in Colab** badge. The setup cells handle a missing `google.colab` module as a normal local-Jupyter case; a Google package is not required locally. Colab setup installs the required packages and obtains the MACE-Field implementation needed by these examples. Local Jupyter uses a nearby MACE-Field checkout; set `MACEFIELD_ROOT` to choose one explicitly. Install the notebook's Python dependencies in the active local environment. The setup cells check for the optional Magnetic MACE and LES dependencies. T01 defaults to CPU in local Jupyter; set `MACE_TUTORIAL_DEVICE=cuda` to opt into a compatible local CUDA stack. Structure selectors, vector controls and animation sliders are JavaScript controls; the notebooks do not require ipywidgets or Plotly for these interactions.
+Open a notebook in Jupyter or use its **Open in Colab** badge from this repository checkout. The setup cells handle a missing `google.colab` module as a normal local-Jupyter case; a Google package is not required locally. Colab setup installs the required packages and obtains the MACE-Field implementation needed by these examples. Local Jupyter uses a nearby MACE-Field checkout; set `MACEFIELD_ROOT` to choose one explicitly. Install the notebook's Python dependencies in the active local environment. The setup cells check for the optional Magnetic MACE and LES dependencies. T01 defaults to CPU in local Jupyter and selects CUDA in Colab when a GPU runtime is active; set `MACE_TUTORIAL_DEVICE=cpu` to choose CPU explicitly. The structure selectors, vector controls and animation sliders use the bundled JavaScript viewer in both JupyterLab and Colab. The notebooks do not require ipywidgets or Plotly for these interactions.
 
 The extension code reads implementations from the MACE-Field source project; that source is a software dependency, not a prerequisite tutorial. MACEField, AtomicDipolesMACE and MACELES use `mdi-group/mace-field` from `origin/develop`; Magnetic MACE uses `MagneticScaleShiftMACE` at revision `1bd205048383a0cae6982cccd687e1837aea717a`. T01's primary model trains energy, forces and all field-response labels jointly from random initialization; it does not require a published foundation checkpoint. An optional staged path demonstrates adding response labels to a fitted energy/force model. For research work, check compatibility between a checkpoint and the source revision used to load it.
 
@@ -96,4 +80,4 @@ The ExtXYZ labels are analytic teaching targets, not quantum-chemistry calculati
 
 ## Notebook acknowledgements
 
-The linked notebooks in `MACE_in_practice_I/`, `MACE_in_practice_II/` and `MACE_advanced/` are the workshop's own foundation and extension route. The [MACE Theory notebook](../MACE_advanced/T03-MACE-Theory.ipynb) credits **Will Baldwin** as its developer and states that it is based on a developer tutorial by **Ilyes Batatia**. The Practice I, Practice II, and advanced application notebook sources do not currently contain named original-author statements; the repository does not assign authorship by inference. The workshop team is **Bradley Martin, Isaac Parker and Joe Hart**.
+The source notebooks for Practice I, Practice II, the two advanced application examples and MACE Theory were made by **Ioan Magdău, Ilyes Batatia and Will Baldwin**, and further refined by **Ioan Magdău and Alin Elena**. The extension notebooks were made by **Bradley Martin**. The workshop team is **Bradley Martin, Isaac Parker and Joe Hart**; the team leads the core practical notebooks together, with Bradley leading the extension demonstration individually. See the [repository README](../README.md) for the workshop route and the [figure attribution](figures/ATTRIBUTION.md) for the architecture source.

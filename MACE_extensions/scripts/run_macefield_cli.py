@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Run the MACE-Field training CLI with local CUDA and warning setup."""
+"""Run the MACE-Field training CLI with warning setup."""
 from __future__ import annotations
 
-import os
 from pathlib import Path
 import runpy
 import sys
@@ -29,14 +28,6 @@ def _quiet_user_and_deprecation_warnings(
 
 
 warnings.showwarning = _quiet_user_and_deprecation_warnings
-
-if os.environ.get("DEVICE", "cpu").lower() == "cuda":
-    from MACE_extensions.scripts.notebook_setup import _prepare_cuda_runtime
-
-    if _prepare_cuda_runtime() is None:
-        raise RuntimeError(
-            "CUDA was requested, but the matching NVRTC libraries could not be located."
-        )
 
 sys.argv = [str(CLI), *sys.argv[2:]]
 runpy.run_path(str(CLI), run_name="__main__")

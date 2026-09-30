@@ -204,9 +204,15 @@ def _viewer_output(payload: dict[str, Any], *, gallery: bool = False) -> Javascr
     entrypoint = "createMaceStructureGallery" if gallery else "createMaceStructureViewer"
     script = (
         "(function(){\n"
+        # Jupyter exposes its output node as `element`; Colab exposes the same
+        # node as `window.element`. Resolve both contracts before mounting.
+        "const candidate = typeof element !== 'undefined' ? element : null;\n"
+        "const host = candidate && typeof candidate.appendChild === 'function' ? candidate : "
+        "(candidate && candidate[0] && typeof candidate[0].appendChild === 'function' ? candidate[0] : window.element);\n"
+        "if (!host || !host.appendChild) throw new Error('Structure viewer could not find this cell output element.');\n"
         "const spec=" + data + ";\n"
         + source
-        + "\n" + entrypoint + "(element,spec);\n})();"
+        + "\n" + entrypoint + "(host,spec);\n})();"
     )
     return Javascript(script)
 
