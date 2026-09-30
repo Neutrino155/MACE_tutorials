@@ -204,15 +204,23 @@ def _viewer_output(payload: dict[str, Any], *, gallery: bool = False) -> Javascr
     entrypoint = "createMaceStructureGallery" if gallery else "createMaceStructureViewer"
     script = (
         "(function(){\n"
-        # Jupyter exposes its output node as `element`; Colab exposes the same
-        # node as `window.element`. Resolve both contracts before mounting.
-        "const candidate = typeof element !== 'undefined' ? element : null;\n"
-        "const host = candidate && typeof candidate.appendChild === 'function' ? candidate : "
-        "(candidate && candidate[0] && typeof candidate[0].appendChild === 'function' ? candidate[0] : window.element);\n"
+        # Colab's documented JavaScript output contract passes window.element;
+        # Jupyter supplies the current output node as the lexical `element`.
+        # Resolve by frontend so a browser global named `element` cannot win.
+        "const isColab = Boolean(window.google && window.google.colab);\n"
+        "const candidates = isColab ? [window.element] : [(typeof element !== 'undefined' ? element : null), window.element];\n"
+        "const host = candidates.map((candidate) => candidate && typeof candidate.appendChild === 'function' ? candidate : "
+        "(candidate && candidate[0] && typeof candidate[0].appendChild === 'function' ? candidate[0] : null)).find(Boolean);\n"
         "if (!host || !host.appendChild) throw new Error('Structure viewer could not find this cell output element.');\n"
         "const spec=" + data + ";\n"
         + source
-        + "\n" + entrypoint + "(host,spec);\n})();"
+        + "\ntry { " + entrypoint + "(host,spec); } catch (error) {\n"
+        "  const message = document.createElement('div');\n"
+        "  message.style.cssText = 'padding:12px;border:1px solid #d98b8b;border-radius:8px;background:#fff5f5;color:#8b2020;font:13px system-ui,sans-serif';\n"
+        "  message.textContent = 'Interactive structure viewer failed: ' + (error && error.message ? error.message : String(error));\n"
+        "  (host.shadowRoot || host).replaceChildren(message);\n"
+        "  console.error('Interactive structure viewer failed', error);\n"
+        "}\n})();"
     )
     return Javascript(script)
 
