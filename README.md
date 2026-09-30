@@ -37,7 +37,7 @@ These materials support the Lennard-Jones Centre and Thomas Young Centre Summer 
 
 ## Notebook credits and provenance
 
-The notebooks in this repository are the workshop materials; use the links above to navigate between them without needing another tutorial collection. The source notebooks for Practice I, Practice II, the two advanced application examples, and the [MACE Theory notebook](MACE_advanced/T03-MACE-Theory.ipynb) were made by Ioan Magdău, Ilyes Batatia and Will Baldwin, and further refined by Ioan Magdău and Alin Elena. 
+The notebooks in this repository are the workshop materials; use the links above to navigate between them without needing another tutorial collection. The source notebooks for [Practice I](MACE_in_practice_I/T01-MACE-Practice-I.ipynb), [Practice II](MACE_in_practice_II/T01-MACE-Practice-II.ipynb), the two advanced [application examples](MACE_advanced/), and the [MACE Theory notebook](MACE_advanced/T03-MACE-Theory.ipynb) were made by Ioan Magdău, Ilyes Batatia and Will Baldwin, and further refined by Ioan Magdău and Alin Elena. The [MACE extension notebooks](MACE_extensions/) were made by Bradley Martin.
 
 ## Running the notebooks
 
