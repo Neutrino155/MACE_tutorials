@@ -60,6 +60,13 @@ def main() -> None:
     frames = read(args.train_file, index=":")
     errors = energy_errors(model_path, frames)
     shift = float(errors.mean())
+    rmse_before = float(np.sqrt(np.mean(errors**2)))
+    # ScaleShiftBlock adds this scalar once per atom. After subtracting the
+    # mean residual from it, every per-atom residual is therefore errors-shift.
+    # Compute the corrected RMSE from that exact identity instead of running
+    # the whole training set through the model a second time.
+    calibrated_errors = errors - shift
+    rmse_after = float(np.sqrt(np.mean(calibrated_errors**2)))
 
     model = torch.load(model_path, map_location="cpu", weights_only=False)
     if not hasattr(model, "scale_shift") or not hasattr(model.scale_shift, "shift"):
@@ -82,10 +89,9 @@ def main() -> None:
     compiled_path = model_path.with_name(model_path.stem.split("_run-")[0] + "_compiled.model")
     if compiled_path.is_file():
         compiled_path.unlink()  # The CLI export predates this baseline correction.
-    calibrated = energy_errors(model_path, frames)
     print(f"Training-set mean energy residual before correction: {shift:+.8f} eV/atom")
-    print(f"Training-set energy RMSE before: {np.sqrt(np.mean(errors**2))*1000:.4f} meV/atom")
-    print(f"Training-set energy RMSE after:  {np.sqrt(np.mean(calibrated**2))*1000:.4f} meV/atom")
+    print(f"Training-set energy RMSE before: {rmse_before*1000:.4f} meV/atom")
+    print(f"Training-set energy RMSE after:  {rmse_after*1000:.4f} meV/atom")
     print("Applied correction only to the per-atom energy offset; forces and field derivatives are unchanged.")
     if not compiled_path.exists():
         print("Removed any stale compiled companion; the corrected raw .model is authoritative.")

@@ -169,11 +169,24 @@ def run_python_script(
         paths.append(environment["PYTHONPATH"])
     environment["PYTHONPATH"] = os.pathsep.join(paths)
     environment["PYTHONWARNINGS"] = "ignore::UserWarning,ignore::DeprecationWarning"
-    subprocess.run(
-        [sys.executable, str(script), *(str(argument) for argument in arguments)],
-        check=True,
+    command = [sys.executable, str(script), *(str(argument) for argument in arguments)]
+    process = subprocess.run(
+        command,
+        check=False,
+        capture_output=True,
+        text=True,
         env=environment,
     )
+    if process.stdout:
+        sys.stdout.write(process.stdout)
+        sys.stdout.flush()
+    if process.stderr:
+        sys.stderr.write(process.stderr)
+        sys.stderr.flush()
+    if process.returncode:
+        raise subprocess.CalledProcessError(
+            process.returncode, command, output=process.stdout, stderr=process.stderr
+        )
 
 
 def require_clean_source(source: str | Path, branch: str = "origin/develop") -> str:
