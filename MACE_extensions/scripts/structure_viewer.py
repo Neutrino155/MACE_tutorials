@@ -214,7 +214,17 @@ def _viewer_output(payload: dict[str, Any], *, gallery: bool = False) -> Javascr
         "if (!host || !host.appendChild) throw new Error('Structure viewer could not find this cell output element.');\n"
         "const spec=" + data + ";\n"
         + source
-        + "\ntry { " + entrypoint + "(host,spec); } catch (error) {\n"
+        + "\ntry {\n"
+        + "  " + entrypoint + "(host,spec);\n"
+        # Colab runs each output in a sandboxed iframe. Resize it after
+        # adding the canvas so it is not clipped to the initial output height.
+        + "  const colabOutput = isColab ? window.google.colab.output : null;\n"
+        + "  if (colabOutput && typeof colabOutput.setIframeHeight === 'function') {\n"
+        + "    const resizeOutput = () => { try { colabOutput.setIframeHeight(Math.max(document.documentElement.scrollHeight, document.body ? document.body.scrollHeight : 0), true, {maxHeight: 1200}); } catch (resizeError) { console.warn('Could not resize Colab structure viewer output', resizeError); } };\n"
+        + "    requestAnimationFrame(resizeOutput);\n"
+        + "    setTimeout(resizeOutput, 100);\n"
+        + "  }\n"
+        + "} catch (error) {\n"
         "  const message = document.createElement('div');\n"
         "  message.style.cssText = 'padding:12px;border:1px solid #d98b8b;border-radius:8px;background:#fff5f5;color:#8b2020;font:13px system-ui,sans-serif';\n"
         "  message.textContent = 'Interactive structure viewer failed: ' + (error && error.message ? error.message : String(error));\n"

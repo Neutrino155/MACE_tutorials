@@ -1,9 +1,13 @@
 """Small presentation helpers shared by the extension notebooks."""
 from __future__ import annotations
 
-import inspect
-from pathlib import Path
 from html import escape
+import inspect
+import os
+import subprocess
+import sys
+import warnings
+from pathlib import Path
 
 from IPython.display import HTML, display
 from pygments import highlight
@@ -73,3 +77,80 @@ def read_source(relative_path: str, start: int, stop: int, *, root: str | Path) 
     stop = min(stop, len(lines))
     source = "\n".join(lines[start - 1:stop])
     _show_source(source, title=path.name, location=f"{path} · lines {start}–{stop}", first_line=start)
+
+
+def train_mace(config: dict) -> Path:
+    """Write a normal MACE YAML config and run it in this notebook kernel."""
+    import yaml
+
+    from mace.cli.run_train import main as run_train
+
+    config = dict(config)
+    model_dir = Path(config["model_dir"]).expanduser().resolve()
+    model_dir.mkdir(parents=True, exist_ok=True)
+    config["model_dir"] = str(model_dir)
+    for key, folder in {
+        "checkpoints_dir": "checkpoints",
+        "log_dir": "logs",
+        "results_dir": "results",
+        "work_dir": "work",
+    }.items():
+        config.setdefault(key, str(model_dir / folder))
+    config_path = model_dir / "training.yml"
+    config_path.write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
+
+    previous_argv = sys.argv[:]
+    try:
+        sys.argv = ["mace_run_train", "--config", str(config_path)]
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", UserWarning)
+            warnings.simplefilter("ignore", DeprecationWarning)
+            run_train()
+    finally:
+        sys.argv = previous_argv
+    return config_path
+
+
+def run_python_script(
+    script: str | Path,
+    *arguments: str | Path,
+    python_path: tuple[str | Path, ...] = (),
+) -> None:
+    """Run a repository CLI in a clean Python process with the source paths set."""
+    script = Path(script).resolve()
+    environment = os.environ.copy()
+    paths = [str(Path(path).resolve()) for path in python_path]
+    if environment.get("PYTHONPATH"):
+        paths.append(environment["PYTHONPATH"])
+    environment["PYTHONPATH"] = os.pathsep.join(paths)
+    environment["PYTHONWARNINGS"] = "ignore::UserWarning,ignore::DeprecationWarning"
+    subprocess.run(
+        [sys.executable, str(script), *(str(argument) for argument in arguments)],
+        check=True,
+        env=environment,
+    )
+
+
+def require_clean_source(source: str | Path, branch: str = "origin/develop") -> str:
+    """Require an unmodified MACE source tree at the requested branch tip."""
+    import subprocess
+
+    source = Path(source)
+    head = subprocess.run(
+        ["git", "-C", str(source), "rev-parse", "HEAD"],
+        check=True, capture_output=True, text=True,
+    ).stdout.strip()
+    target = subprocess.run(
+        ["git", "-C", str(source), "rev-parse", branch],
+        check=True, capture_output=True, text=True,
+    ).stdout.strip()
+    changed = subprocess.run(
+        ["git", "-C", str(source), "diff", "--quiet", "HEAD", "--", "mace"],
+        check=False,
+    ).returncode
+    if head != target or changed:
+        raise RuntimeError(
+            f"Training needs a clean MACE source tree at {branch}; source is {head}, "
+            f"reference is {target}."
+        )
+    return head
