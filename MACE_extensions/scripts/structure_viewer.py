@@ -204,11 +204,17 @@ def _viewer_output(payload: dict[str, Any], *, gallery: bool = False) -> Javascr
     entrypoint = "createMaceStructureGallery" if gallery else "createMaceStructureViewer"
     script = (
         "(function(){\n"
-        # Colab's documented JavaScript output contract passes window.element;
-        # Jupyter supplies the current output node as the lexical `element`.
-        # Resolve by frontend so a browser global named `element` cannot win.
+        # Colab's window.element can be detached, so create a connected mount
+        # in the output frame. Jupyter supplies the output node as `element`.
         "const isColab = Boolean(window.google && window.google.colab);\n"
-        "const candidates = isColab ? [window.element] : [(typeof element !== 'undefined' ? element : null), window.element];\n"
+        "const jupyterElement = typeof element !== 'undefined' ? element : null;\n"
+        "const candidates = isColab\n"
+        "  ? [(() => {\n"
+        "      const mount = document.createElement(\"div\");\n"
+        "      (document.body || document.documentElement).appendChild(mount);\n"
+        "      return mount;\n"
+        "    })()]\n"
+        "  : [jupyterElement, window.element];\n"
         "const host = candidates.map((candidate) => candidate && typeof candidate.appendChild === 'function' ? candidate : "
         "(candidate && candidate[0] && typeof candidate[0].appendChild === 'function' ? candidate[0] : null)).find(Boolean);\n"
         "if (!host || !host.appendChild) throw new Error('Structure viewer could not find this cell output element.');\n"
