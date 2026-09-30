@@ -1,0 +1,255 @@
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.27131407371687144 -0.09484203227780741 -0.4945241429406454" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_0_bond_0 pbc="F F F"
+O       -0.43524800       0.87155474       1.21543151
+H       -1.15240763       0.40995070       0.87046228
+H       -0.39637355       1.09605369       0.32409039
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.417393980532238 0.12402158158229724 -0.4056520684633923" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_0_bond_1 pbc="F F F"
+O        1.25955048       0.40761241       0.75819629
+H        0.73027853       1.13644822       0.43431143
+H        0.74533748      -0.01116944       0.06795098
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.1092619357145789 0.15264814041795655 -0.5861741499293522" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_0_bond_2 pbc="F F F"
+O       -0.66630235      -0.82100083       0.07745053
+H       -0.73564202      -0.05293030      -0.54332292
+H       -0.32380785      -1.20745101      -0.76721140
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.2823508422718284 0.41723809190268313 -0.24373825822183445" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_1_bond_0 pbc="F F F"
+O       -0.40445760      -0.91380720       0.28459761
+H       -0.35338072      -0.00101279       0.18165336
+H       -1.16141158      -0.78350638      -0.22180378
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.07843261287708962 -0.2672477688642001 -0.5113578200753481" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_1_bond_1 pbc="F F F"
+O       -0.46469826       1.34045937       0.19013212
+H       -0.79819581       0.58607902      -0.29558539
+H        0.06488082       1.42672031      -0.60254491
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.03248810640366734 0.4937897468345258 -0.34323616214335095" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_1_bond_2 pbc="F F F"
+O       -0.55853902      -0.71534086       0.60252267
+H       -0.33466997       0.24547294       0.68510289
+H       -0.70118780      -0.44168029      -0.33814795
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.5040493976034164 -0.09897491858611097 0.18787627706984017" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_2_bond_0 pbc="F F F"
+O        0.69372198       0.14544919       0.36450978
+H        1.17340285       0.27868214       1.13817330
+H        1.47416460      -0.23522105       0.06053695
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.5443904642903854 0.16375499979843522 0.025780791783484247" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_2_bond_1 pbc="F F F"
+O        0.23153251      -0.25118807      -1.49459294
+H        1.03124197      -0.35662966      -2.00993622
+H        0.79279922       0.26364101      -0.91479768
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.29432311726417626 0.4662211993553487 -0.20597855933839015" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_2_bond_2 pbc="F F F"
+O        1.46920850      -1.32379435      -0.42530634
+H        0.63230980      -0.83457551      -0.22439470
+H        1.57029941      -0.64746019      -1.14116438
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.23644062725408121 0.1375513918640614 0.45847413608233667" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_3_bond_0 pbc="F F F"
+O        0.82263647       1.37539320       1.16518628
+H        0.98333436       1.25103692       2.06246645
+H        0.07083702       1.84362797       1.41409145
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.30733453953607587 0.2610117436718407 0.382043371241088" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_3_bond_1 pbc="F F F"
+O       -0.60687163      -0.65515952       0.51547795
+H       -0.81072373      -0.77517636       1.44298650
+H       -1.17135588       0.11738667       0.54307782
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.1100479720509404 -0.5437281160458345 0.1493164769779614" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_3_bond_2 pbc="F F F"
+O       -0.02555000       0.30414636       0.19207159
+H       -0.08859284      -0.24111352       1.01597526
+H        0.31261276      -0.50991404      -0.25854089
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.18632560179937918 -0.27196671263544614 -0.4026970043747131" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_4_bond_0 pbc="F F F"
+O        0.86317988       0.41707876       0.47882180
+H        0.15830600       0.51776900      -0.10377092
+H        1.10223976      -0.36352827       0.05467202
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.2978534220667064 -0.19706778129455788 0.4069911759962282" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_4_bond_1 pbc="F F F"
+O        0.94272919      -1.09571565       0.34652482
+H        0.18064829      -1.67135735       0.41056528
+H        0.96017652      -1.01274339       1.29996231
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.5448680789917456 0.06265846973575409 0.11324615960913897" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_4_bond_2 pbc="F F F"
+O        1.07123607       0.38504359      -0.53598691
+H        0.25119408       0.49383368      -1.07985809
+H        0.52910786       0.43289966       0.29099966
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.42679264888466995 -0.2144752967623611 -0.16888248239594073" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_5_bond_0 pbc="F F F"
+O       -0.66002477      -1.40184487      -1.24827183
+H        0.22481172      -1.15050732      -1.23113047
+H       -0.47787963      -2.18937065      -1.68761941
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.22607028074597785 -0.275849227363253 0.3881353146659152" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_5_bond_1 pbc="F F F"
+O        1.14355854      -0.43481696      -0.54396310
+H        1.98241855      -0.36515690      -0.08822940
+H        0.86987423      -1.19410008      -0.02935851
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.11070693003208705 0.1480990500280811 0.5128629606388666" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_5_bond_2 pbc="F F F"
+O       -0.08098542       0.17489219       1.37544034
+H       -0.07552160       1.04363193       1.85016280
+H       -0.36321656      -0.32359992       2.18287529
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.13937808690033465 -0.09751848980111207 0.4621694146303883" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_6_bond_0 pbc="F F F"
+O        0.45049817       0.65218352       1.02668379
+H        0.40944674       1.17719584       1.78105561
+H        0.14310439      -0.11662503       1.42773551
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.3431807606801639 0.10995194222723476 -0.3642589555593281" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_6_bond_1 pbc="F F F"
+O       -1.19494273      -0.44085470       1.39045424
+H       -1.30066693      -0.75775133       0.49344212
+H       -1.94717043       0.15092179       1.37681898
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.27135283977857994 -0.3112629079481504 0.3321619597247718" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_6_bond_2 pbc="F F F"
+O       -0.69840320       1.24336837      -0.54365376
+H       -0.46032305       0.83743319       0.32734250
+H       -1.61486546       0.87114628      -0.58424511
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.4013265813476488 0.12039472527560882 0.23004374201964994" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_7_bond_0 pbc="F F F"
+O        0.86942815      -0.23116187      -0.94901884
+H        1.67974897       0.05964621      -1.27338104
+H        1.06242378      -0.22098312      -0.04954728
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.3757451860341964 -0.3257934833782988 -0.0016352622202467915" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_7_bond_1 pbc="F F F"
+O        0.84409768      -0.40414483      -1.37072793
+H        0.29095655      -0.71873008      -0.65567349
+H        0.45787584      -0.90404328      -2.08987052
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.189061787739899 0.4573682743257947 0.14013938745884547" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_7_bond_2 pbc="F F F"
+O       -0.87643518      -0.49459489       0.20269573
+H       -1.68684906      -0.01359774      -0.10057162
+H       -0.53867576       0.16782865       0.85631154
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.4399615584931924 -0.035075075701311964 0.14049590911546173" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_8_bond_0 pbc="F F F"
+O       -0.99652903       0.93429862      -0.61095835
+H       -1.36180350       1.14536209       0.20661537
+H       -1.73115846       0.63554745      -1.07729229
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.14142697436059826 0.3717150065499784 -0.2721434439728557" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_8_bond_1 pbc="F F F"
+O       -0.67355744       0.38492538       0.71778239
+H       -1.01939325       1.23453339       0.99127033
+H       -0.68128907       0.46460488      -0.23606416
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.3477730814606518 0.14546272380596206 -0.3260655154715964" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_8_bond_2 pbc="F F F"
+O        0.14841467      -0.11434921       0.23123950
+H        0.15369389      -0.20250612      -0.75481349
+H        1.01256816       0.33746452       0.40212869
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.15860900028374936 -0.4180366947498136 0.028911695621551825" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_9_bond_0 pbc="F F F"
+O       -0.88073196       0.73332567       0.81461111
+H       -0.00207960       0.46363302       0.77416477
+H       -1.36286182      -0.04207341       0.92733669
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.3411905201063039 0.2682944840237342 -0.17005013277620212" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_9_bond_1 pbc="F F F"
+O        1.13829618      -0.88328203       0.15412697
+H        1.13314268       0.06790295       0.04711103
+H        1.99642597      -1.16373080      -0.16398241
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.1855431301656646 -0.175221999802869 0.40905875235694045" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_9_bond_2 pbc="F F F"
+O        1.25739147       0.26391065      -0.96745052
+H        2.01496906       0.62836006      -0.44461898
+H        0.96367171      -0.53859376      -0.46763518
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.4034855070963171 -0.12403584186330535 0.09468854526300063" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_10_bond_0 pbc="F F F"
+O       -0.23702188      -0.56762096       0.22499853
+H        0.33718224      -1.01519479      -0.33746685
+H        0.19748777      -0.43013674       1.02418527
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.2632202852664461 -0.02846658121389082 0.3640012870678714" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_10_bond_1 pbc="F F F"
+O        0.20841869      -0.03732576      -0.39358713
+H       -0.73017718      -0.22511381      -0.39128743
+H        0.48896384       0.07929583       0.51411638
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.420295060975575 0.11000611193913779 -0.1672276863314448" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_10_bond_2 pbc="F F F"
+O        0.83054486       1.33854892       1.48097056
+H        1.06153458       1.46851446       0.52710856
+H        1.65029280       1.48359865       2.01676334
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.24240994373166072 -0.3275979591509264 -0.08775963731531494" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_11_bond_0 pbc="F F F"
+O       -1.27093503      -1.14686076      -0.79548276
+H       -1.58407734      -1.97257313      -1.05343814
+H       -0.35176785      -1.14014329      -0.75692648
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.3859860316412094 0.16803230423908866 0.10441607467780045" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_11_bond_1 pbc="F F F"
+O        0.36620922       0.71970211      -0.43579963
+H        0.76030985       0.67260583       0.43523336
+H        0.93707368       1.18687915      -1.04579244
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.16801049862880857 0.24656584167970164 -0.33498373291174577" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_11_bond_2 pbc="F F F"
+O        0.01738306      -0.18077915       0.85630200
+H        0.00032331       0.80858034       0.82504857
+H        0.45446906      -0.55372403       0.05009611
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.18224940843869392 -0.3282787597556567 0.14036524752672797" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_12_bond_0 pbc="F F F"
+O        1.12697955       0.12733766      -1.36143891
+H        1.90501134      -0.20650607      -1.72145962
+H        0.80457129      -0.35951551      -0.65050509
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.3286782076560276 -0.20297260804734885 -0.15720726723861772" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_12_bond_1 pbc="F F F"
+O       -1.46930429      -1.17465203      -0.50700169
+H       -1.15243883      -1.04089456      -1.40027491
+H       -0.96447423      -1.81584103      -0.00674663
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.014044199247909894 -0.36472927715294934 0.22987319985988508" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_12_bond_2 pbc="F F F"
+O        0.59239180       1.16409636       1.13900176
+H       -0.23206023       0.62703464       1.24828838
+H        1.38173333       0.78933488       1.60439813
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.01803016831575749 -0.22898626002146416 0.30842468590959304" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_13_bond_0 pbc="F F F"
+O       -0.24846770      -0.44023302       1.23246628
+H        0.47467538      -0.55385792       1.78973953
+H       -1.01668619      -0.89907377       1.44625474
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.38122152386168184 -0.04455203514499452 -0.1130136204843174" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_13_bond_1 pbc="F F F"
+O       -1.11937177       0.03036776       0.62303369
+H       -1.38273628       0.11648645      -0.29318383
+H       -1.80906107      -0.16713102       1.25671716
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.21760093803155978 0.26950230492640964 0.22641641060847226" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_13_bond_2 pbc="F F F"
+O       -0.53964010       0.19934741      -0.32450108
+H        0.44041119       0.29112403      -0.43022013
+H       -0.97568904       0.78132655       0.34725899
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.11957047075320512 -0.14581501299662047 -0.31601405745417777" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_14_bond_0 pbc="F F F"
+O        0.03564428       1.15535312       1.07190300
+H       -0.02729441       0.24840384       0.93090045
+H        0.39750915       1.69776487       0.42287041
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.273591877054256 -0.2678151071555391 -0.004432560117603502" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_14_bond_1 pbc="F F F"
+O        1.02445968       0.98014086      -0.35013191
+H        0.83129013       0.10410348      -0.68401195
+H        1.90160892       1.18664047      -0.02733328
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.11572968508064448 0.2403205814670939 0.2926920875501295" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_14_bond_2 pbc="F F F"
+O       -0.07789133       1.17886899       0.94993221
+H       -0.19343931       0.90135701       1.89319027
+H        0.32698085       2.05718242       0.73840437
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.26354296168904395 0.23065832951357093 0.025989401963608383" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_15_bond_0 pbc="F F F"
+O        0.63453165      -0.29494509       0.98128142
+H        0.82047719       0.55091497       1.29167636
+H       -0.21027129      -0.56415933       0.73585999
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.3140278534441113 -0.10558562816145745 0.15410182064787115" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_15_bond_1 pbc="F F F"
+O        1.22506038      -1.05886036       0.44500230
+H        1.98938697      -1.18636741      -0.11693956
+H        1.24580343      -1.19531739       1.39219872
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.2276291006178451 -0.23109032201469404 -0.19390210363279448" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_15_bond_2 pbc="F F F"
+O       -1.01764049       0.84940299      -1.05118327
+H       -1.41310436       0.05381438      -1.48792928
+H       -0.05310386       1.06726580      -1.09919252
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.3196456549725943 -0.06376352706226723 0.07354187827903919" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_16_bond_0 pbc="F F F"
+O        0.48111801      -0.62125237      -0.09689975
+H        1.06087531      -0.71966979      -0.80442748
+H        0.70047485      -0.68224377       0.79448268
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="0.2693285279205835 0.020137301182394707 0.21889632640756213" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_16_bond_1 pbc="F F F"
+O        0.83114706       0.84754610       1.32649689
+H        0.64058874       0.75329562       2.25979010
+H        1.69502671       0.99213983       0.94044450
+3
+Properties=species:S:1:pos:R:3 REF_dipoles="-0.14479782943398356 -0.32578525855187157 0.04670427876013439" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_16_bond_2 pbc="F F F"
+O       -0.86337758      -0.37845257      -1.21948964
+H       -0.45278400      -0.95813756      -0.52994035
+H       -1.63596572      -0.61323072      -1.79227823

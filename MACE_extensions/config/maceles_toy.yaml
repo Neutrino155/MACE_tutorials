@@ -1,0 +1,3 @@
+# Minimal LES settings for the extension tutorial. The learned latent charge
+# readout remains an internal model variable; it is not labelled as a QM charge.
+use_atomwise: false

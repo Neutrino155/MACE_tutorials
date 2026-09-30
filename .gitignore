@@ -1,0 +1,4 @@
+# Jupyter checkpoints and Python bytecode are local runtime artifacts.
+**/.ipynb_checkpoints/
+**/__pycache__/
+*.py[cod]
