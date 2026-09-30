@@ -45,6 +45,8 @@ function createMaceStructureViewer(host, spec) {
   const toolbar = make("div", "toolbar");
   const modeButtons = {};
   const periodic = spec.frames.some((frame) => frame.pbc.some(Boolean));
+  const defaultShowBonds = spec.showBonds === undefined ? !periodic : Boolean(spec.showBonds);
+  const defaultShowLabels = spec.showLabels !== false;
   [["3d", "3D"], ["ab", "ab"], ["bc", "bc"], ["ca", "ca"]].forEach(([mode, label]) => {
     if (mode !== "3d" && !periodic) return;
     const button = make("button", mode === "3d" ? "active" : "", label);
@@ -52,6 +54,7 @@ function createMaceStructureViewer(host, spec) {
     button.title = mode === "3d" ? "Perspective view" : "View the " + mode + " lattice face";
     button.addEventListener("click", () => {
       state.view = mode;
+      if (mode !== "3d") state.planeRotation = 0;
       Object.entries(modeButtons).forEach(([key, item]) => item.classList.toggle("active", key === mode));
       state.pan = { x: 0, y: 0 };
       draw();
@@ -94,7 +97,7 @@ function createMaceStructureViewer(host, spec) {
     });
   } else {
     playButton.addEventListener("click", () => {
-      state.yaw = 0.72; state.pitch = -0.42; state.zoom = 1; state.pan = { x: 0, y: 0 };
+      state.rotation = initialRotation(); state.planeRotation = 0; state.zoom = 1; state.pan = { x: 0, y: 0 };
       draw();
     });
   }
@@ -111,9 +114,9 @@ function createMaceStructureViewer(host, spec) {
     return input;
   };
   addToggle("cell", "showCell", spec.showCell, periodic);
-  addToggle("bonds", "showBonds", Boolean(spec.showBonds));
+  addToggle("bonds", "showBonds", defaultShowBonds);
   addToggle("polyhedra", "showPolyhedra", true);
-  addToggle("labels", "showLabels", false);
+  addToggle("labels", "showLabels", defaultShowLabels);
 
   const sizeLabel = make("label", "", "Atom size");
   const sizeSlider = document.createElement("input");
@@ -142,9 +145,9 @@ function createMaceStructureViewer(host, spec) {
 
   const context = canvas.getContext("2d");
   const state = {
-    frame: 0, view: "3d", yaw: 0.72, pitch: -0.42, zoom: 1, pan: { x: 0, y: 0 },
-    atomScale: 1.35, showCell: Boolean(spec.showCell), showBonds: Boolean(spec.showBonds),
-    showPolyhedra: true, showLabels: false, selectedAtom: -1, timer: null,
+    frame: 0, view: "3d", rotation: initialRotation(), planeRotation: 0, zoom: 1, pan: { x: 0, y: 0 },
+    atomScale: 1.35, showCell: Boolean(spec.showCell), showBonds: defaultShowBonds,
+    showPolyhedra: true, showLabels: defaultShowLabels, selectedAtom: -1, timer: null,
     pointer: null, hoverAtom: -1,
   };
   const elementColors = {
@@ -183,6 +186,54 @@ function createMaceStructureViewer(host, spec) {
   function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
   function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
   function unit(vector) { const length = norm(vector); return length > 1e-12 ? vector.map((v) => v / length) : [1, 0, 0]; }
+  function quaternionMultiply(a, b) {
+    return [
+      a[0] * b[0] - a[1] * b[1] - a[2] * b[2] - a[3] * b[3],
+      a[0] * b[1] + a[1] * b[0] + a[2] * b[3] - a[3] * b[2],
+      a[0] * b[2] - a[1] * b[3] + a[2] * b[0] + a[3] * b[1],
+      a[0] * b[3] + a[1] * b[2] - a[2] * b[1] + a[3] * b[0],
+    ];
+  }
+  function normalizeQuaternion(quaternion) {
+    const length = Math.hypot(...quaternion);
+    return quaternion.map((value) => value / (length || 1));
+  }
+  function initialRotation() {
+    const yaw = 0.72 / 2, pitch = -0.42 / 2;
+    const aroundZ = [Math.cos(yaw), 0, 0, Math.sin(yaw)];
+    const aroundX = [Math.cos(pitch), Math.sin(pitch), 0, 0];
+    return normalizeQuaternion(quaternionMultiply(aroundX, aroundZ));
+  }
+  function rotateVector(vector, quaternion) {
+    const imaginary = quaternion.slice(1);
+    const firstCross = cross(imaginary, vector);
+    const secondCross = cross(imaginary, firstCross);
+    return vector.map((value, axis) => value + 2 * (quaternion[0] * firstCross[axis] + secondCross[axis]));
+  }
+  function trackballPoint(clientX, clientY) {
+    const bounds = canvas.getBoundingClientRect();
+    const diameter = Math.max(1, Math.min(bounds.width, bounds.height));
+    let x = (2 * (clientX - (bounds.left + bounds.width / 2))) / diameter;
+    let y = (2 * ((bounds.top + bounds.height / 2) - clientY)) / diameter;
+    const radiusSquared = x * x + y * y;
+    if (radiusSquared > 1) {
+      const length = Math.sqrt(radiusSquared);
+      x /= length; y /= length;
+      return [x, y, 0];
+    }
+    return [x, y, Math.sqrt(1 - radiusSquared)];
+  }
+  function rotateTrackball(from, to) {
+    const cosine = Math.max(-1, Math.min(1, dot(from, to)));
+    let delta = [1 + cosine, ...cross(from, to)];
+    if (cosine < -0.999999) {
+      let axis = cross(from, [1, 0, 0]);
+      if (norm(axis) < 1e-8) axis = cross(from, [0, 1, 0]);
+      axis = unit(axis);
+      delta = [0, ...axis];
+    }
+    state.rotation = normalizeQuaternion(quaternionMultiply(normalizeQuaternion(delta), state.rotation));
+  }
   function cart(fractional, cell) {
     return [0, 1, 2].map((axis) => fractional.reduce((sum, value, vector) => sum + value * cell[vector][axis], 0));
   }
@@ -223,15 +274,15 @@ function createMaceStructureViewer(host, spec) {
         const hExtent = Math.abs(dot(frame.cell[pair[0]], horizontal)) + Math.abs(dot(frame.cell[pair[1]], horizontal));
         const vExtent = Math.abs(dot(frame.cell[pair[0]], vertical)) + Math.abs(dot(frame.cell[pair[1]], vertical));
         const scale = Math.min(width * 0.76 / Math.max(hExtent, 1e-8), height * 0.72 / Math.max(vExtent, 1e-8)) * state.zoom;
-        return { x: width / 2 + state.pan.x + dot(plane, horizontal) * scale,
-          y: height / 2 + state.pan.y - dot(plane, vertical) * scale, z: depth, scale };
+        const angle = state.planeRotation, cosine = Math.cos(angle), sine = Math.sin(angle);
+        const planeX = dot(plane, horizontal), planeY = dot(plane, vertical);
+        const rotatedX = cosine * planeX - sine * planeY;
+        const rotatedY = sine * planeX + cosine * planeY;
+        return { x: width / 2 + state.pan.x + rotatedX * scale,
+          y: height / 2 + state.pan.y - rotatedY * scale, z: depth, scale };
       }
     }
-    const cy = Math.cos(state.yaw), sy = Math.sin(state.yaw), cp = Math.cos(state.pitch), sp = Math.sin(state.pitch);
-    const x = cy * vector[0] - sy * vector[1];
-    const y0 = sy * vector[0] + cy * vector[1];
-    const y = cp * y0 - sp * vector[2];
-    const z = sp * y0 + cp * vector[2];
+    const [x, y, z] = rotateVector(vector, state.rotation);
     let extent = Math.max(...frame.cell.map(norm), 0);
     if (!frame.pbc.some(Boolean)) {
       extent = Math.max(...[0, 1, 2].map((axis) =>
@@ -295,10 +346,8 @@ function createMaceStructureViewer(host, spec) {
   function drawPolyhedra(frame, width, height) {
     if (!state.showPolyhedra) return;
     const faces = [];
-    const imageAtoms = [];
     (frame.polyhedra || []).forEach((poly) => {
       const vertices = poly.vectors.map((vector) => poly.origin.map((value, axis) => value + vector[axis]));
-      (poly.images || []).filter((image) => image.periodic).forEach((image) => imageAtoms.push(image));
       hullFaces(poly.vectors).forEach((indices) => {
         const points = indices.map((index) => project(vertices[index], frame, width, height));
         faces.push({ points, color: colorFor(poly.center), depth: points.reduce((sum, point) => sum + point.z, 0) / points.length });
@@ -311,19 +360,6 @@ function createMaceStructureViewer(host, spec) {
       context.globalAlpha = 0.62; context.strokeStyle = face.color; context.lineWidth = 1.15; context.stroke();
     });
     context.globalAlpha = 1;
-    imageAtoms.forEach((image) => {
-      const point = project(image.position, frame, width, height);
-      const radius = Math.max(5, Math.min(24, (displayRadii[image.symbol] || 0.9) * 0.18 * point.scale * state.atomScale));
-      const color = colorFor(image.symbol);
-      const gradient = context.createRadialGradient(point.x - radius * 0.32, point.y - radius * 0.38, radius * 0.08, point.x, point.y, radius);
-      gradient.addColorStop(0, "#ffffff"); gradient.addColorStop(0.28, color); gradient.addColorStop(1, "#1c2d3a");
-      context.fillStyle = gradient; context.beginPath(); context.arc(point.x, point.y, radius, 0, 2 * Math.PI); context.fill();
-      context.strokeStyle = "#f5f9fb"; context.lineWidth = 1.1; context.stroke();
-      if (state.showLabels) {
-        context.fillStyle = "#172b3b"; context.font = "11px system-ui"; context.textAlign = "center";
-        context.fillText(image.symbol, point.x, point.y - radius - 4);
-      }
-    });
   }
   function drawBonds(frame, width, height) {
     if (!state.showBonds) return;
@@ -346,7 +382,19 @@ function createMaceStructureViewer(host, spec) {
     });
   }
   function atomRadius(frame, index, point) {
-    return Math.max(5, Math.min(24, (displayRadii[frame.symbols[index]] || 0.9) * 0.18 * point.scale * state.atomScale));
+    return Math.max(1, (displayRadii[frame.symbols[index]] || 0.9) * 0.18 * point.scale * state.atomScale);
+  }
+  function drawImageAtom(symbol, point) {
+    const radius = Math.max(1, (displayRadii[symbol] || 0.9) * 0.18 * point.scale * state.atomScale);
+    const color = colorFor(symbol);
+    const gradient = context.createRadialGradient(point.x - radius * 0.32, point.y - radius * 0.38, radius * 0.08, point.x, point.y, radius);
+    gradient.addColorStop(0, "#ffffff"); gradient.addColorStop(0.28, color); gradient.addColorStop(1, "#1c2d3a");
+    context.fillStyle = gradient; context.beginPath(); context.arc(point.x, point.y, radius, 0, 2 * Math.PI); context.fill();
+    context.strokeStyle = "#f5f9fb"; context.lineWidth = 1.1; context.stroke();
+    if (state.showLabels) {
+      context.fillStyle = "#172b3b"; context.font = "11px system-ui"; context.textAlign = "center";
+      context.fillText(symbol, point.x, point.y - radius - 4);
+    }
   }
   function drawAtom(frame, index, point) {
     const radius = atomRadius(frame, index, point);
@@ -438,9 +486,21 @@ function createMaceStructureViewer(host, spec) {
     drawCell(frame, width, height);
     drawPolyhedra(frame, width, height);
     drawBonds(frame, width, height);
-    projectedAtoms = frame.positions.map((point, index) => ({ point: project(point, frame, width, height), index }));
-    projectedAtoms.sort((a, b) => a.point.z - b.point.z);
-    projectedAtoms.forEach(({ point, index }) => drawAtom(frame, index, point));
+    const renderAtoms = frame.positions.map((position, index) => ({
+      point: project(position, frame, width, height), index, symbol: frame.symbols[index], image: false,
+    }));
+    (frame.polyhedra || []).forEach((poly) => {
+      (poly.images || []).filter((image) => image.periodic).forEach((image) => {
+        renderAtoms.push({ point: project(image.position, frame, width, height), symbol: image.symbol, image: true });
+      });
+    });
+    // Paint far atoms first so the closer camera-space atom covers them.
+    renderAtoms.sort((a, b) => a.point.z - b.point.z || Number(a.image) - Number(b.image) || (a.index ?? 0) - (b.index ?? 0));
+    projectedAtoms = renderAtoms.filter((atom) => !atom.image);
+    renderAtoms.forEach((atom) => {
+      if (atom.image) drawImageAtom(atom.symbol, atom.point);
+      else drawAtom(frame, atom.index, atom.point);
+    });
     drawVectors(frame, width, height);
     const label = spec.frameLabels && spec.frameLabels[state.frame] ? spec.frameLabels[state.frame] : "frame " + (state.frame + 1);
     caption.textContent = label + (periodic ? " · " + state.view + " view" : " · interactive structure");
@@ -448,24 +508,37 @@ function createMaceStructureViewer(host, spec) {
     drawLegend(frame); updateDetail(frame);
   }
   function nearestAtom(x, y) {
-    let winner = -1, distance = 24;
-    projectedAtoms.forEach(({ point, index }) => {
-      const current = Math.hypot(point.x - x, point.y - y);
-      if (current < distance) { winner = index; distance = current; }
+    const frame = currentFrame();
+    for (let index = projectedAtoms.length - 1; index >= 0; index -= 1) {
+      const atom = projectedAtoms[index];
+      const distance = Math.hypot(atom.point.x - x, atom.point.y - y);
+      if (distance <= atomRadius(frame, atom.index, atom.point) + 6) return atom.index;
+    }
+    let winner = -1, nearest = 24;
+    projectedAtoms.forEach((atom) => {
+      const distance = Math.hypot(atom.point.x - x, atom.point.y - y);
+      if (distance <= nearest) { winner = atom.index; nearest = distance; }
     });
     return winner;
   }
   canvas.addEventListener("pointerdown", (event) => {
     if (event.button !== 0) return;
     canvas.setPointerCapture(event.pointerId);
-    state.pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false, pan: event.shiftKey };
+    state.pointer = {
+      id: event.pointerId, x: event.clientX, y: event.clientY, moved: false,
+      pan: event.shiftKey, ball: state.view === "3d" && !event.shiftKey ? trackballPoint(event.clientX, event.clientY) : null,
+    };
   });
   canvas.addEventListener("pointermove", (event) => {
     if (!state.pointer || state.pointer.id !== event.pointerId) return;
     const dx = event.clientX - state.pointer.x, dy = event.clientY - state.pointer.y;
     if (Math.abs(dx) + Math.abs(dy) > 2) state.pointer.moved = true;
     if (state.pointer.pan) { state.pan.x += dx; state.pan.y += dy; }
-    else { state.yaw += dx * 0.009; state.pitch = Math.max(-1.45, Math.min(1.45, state.pitch + dy * 0.009)); }
+    else if (state.view === "3d") {
+      const nextBall = trackballPoint(event.clientX, event.clientY);
+      rotateTrackball(state.pointer.ball, nextBall);
+      state.pointer.ball = nextBall;
+    } else state.planeRotation += dx * 0.009;
     state.pointer.x = event.clientX; state.pointer.y = event.clientY; draw();
   });
   canvas.addEventListener("pointerup", (event) => {

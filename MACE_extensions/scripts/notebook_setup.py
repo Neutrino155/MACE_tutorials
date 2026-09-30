@@ -84,18 +84,31 @@ def _find_local_source(tutorial: Path, feature: str) -> Path:
 def _install_colab(source: Path, feature: str) -> None:
     if shutil.which("uv") is None:
         subprocess.run([sys.executable, "-m", "pip", "install", "uv"], check=True)
-    editable = str(source) + ("[les]" if feature == "les" else "")
-    packages = ["--system", "--editable", editable]
+    packages = ["--system", "--editable", str(source)]
     if feature == "magnetic":
         packages.append("sphericart-torch==1.0.9")
     subprocess.run(["uv", "pip", "install", *packages], check=True)
+    if feature == "les":
+        requirements = source / "requirements" / "les.txt"
+        if not requirements.is_file():
+            raise FileNotFoundError(f"LES requirements file not found: {requirements}")
+        subprocess.run(
+            ["uv", "pip", "install", "--system", "--requirement", str(requirements)],
+            check=True,
+        )
 
 
 def _extract_teaching_models(tutorial: Path) -> Path:
     asset_root = tutorial / "MACE_extensions"
     model_root = asset_root / "models" / "pretrained_models"
     archive = asset_root / "models" / "pretrained_models.zip"
-    needed = (model_root / "models" / "atomicdipoles" / "AtomicDipolesMACE-toy.model",)
+    needed = (
+        model_root / "models" / "macefield" / "MACEField-toy.model",
+        model_root / "models" / "atomicdipoles" / "AtomicDipolesMACE-toy.model",
+        model_root / "models" / "magnetic" / "MagneticMACE-toy.model",
+        model_root / "models" / "maceles" / "MACELES-toy.model",
+        model_root / "models" / "maceles_short_range" / "MACELES-short-range-control.model",
+    )
     if any(not path.is_file() or archive.stat().st_mtime > path.stat().st_mtime for path in needed):
         with zipfile.ZipFile(archive) as bundle:
             bundle.extractall(model_root)
@@ -122,6 +135,7 @@ def setup(feature: str = "base") -> dict[str, Path | str]:
         "source_root": source,
         "asset_root": assets,
         "model_root": models,
+        "macefield_model": models / "models/macefield/MACEField-toy.model",
         "dipoles_model": models / "models/atomicdipoles/AtomicDipolesMACE-toy.model",
         "magnetic_model": models / "models/magnetic/MagneticMACE-toy.model",
         "les_model": models / "models/maceles/MACELES-toy.model",

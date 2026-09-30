@@ -26,12 +26,31 @@ def install(*args: str) -> None:
     subprocess.run([sys.executable, "-m", "pip", "install", *args], check=True)
     importlib.invalidate_caches()
 
-def install_editable(*, les: bool = False) -> None:
+def install_editable() -> None:
     if shutil.which("uv") is None:
         install("uv")
-    editable = str(SOURCE_ROOT) + ("[les]" if les else "")
-    subprocess.run(["uv", "pip", "install", "--system", "--editable", editable], check=True)
+    subprocess.run(
+        ["uv", "pip", "install", "--system", "--editable", str(SOURCE_ROOT)],
+        check=True,
+    )
     importlib.invalidate_caches()
+
+
+def install_les() -> None:
+    requirements = SOURCE_ROOT / "requirements" / "les.txt"
+    if not requirements.is_file():
+        raise FileNotFoundError(f"LES requirements file not found: {requirements}")
+    if shutil.which("uv") is None:
+        install("uv")
+    subprocess.run(
+        ["uv", "pip", "install", "--system", "--requirement", str(requirements)],
+        check=True,
+    )
+    importlib.invalidate_caches()
+    if not has("les"):
+        raise ImportError(
+            f"LES requirements installed, but Python cannot import 'les' from {requirements}"
+        )
 
 def ensure(feature: str) -> None:
     features = {item.strip().lower() for item in feature.split(",") if item.strip()}
@@ -55,9 +74,7 @@ def ensure(feature: str) -> None:
     if "magnetic" in features and not has("sphericart"):
         install("sphericart-torch==1.0.9")
     if "les" in features and not has("les"):
-        if not (SOURCE_ROOT / "setup.cfg").is_file():
-            raise FileNotFoundError(f"MACE-Field setup.cfg not found under {SOURCE_ROOT}")
-        install_editable(les=True)
+        install_les()
     print("Dependencies ready for:", ", ".join(sorted(features)))
 
 def main():
