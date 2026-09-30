@@ -33,23 +33,23 @@ Open a notebook from [`MACE_advanced/`](MACE_advanced/) when you are ready for m
 
 ## Lennard-Jones Centre summer school
 
-These materials support the Lennard-Jones Centre and Thomas Young Centre Summer School on Atomic-Scale Modelling, held in Cambridge from **28 September to 2 October 2026**. The tutorial session is on **Thursday 1 October, 14:00–17:00**. The core practical notebooks are the focus; students who finish early can choose an advanced notebook, and the extension models are shown in the final segment.
+These materials support the Lennard-Jones Centre and Thomas Young Centre Summer School on Atomic-Scale Modelling, held in Cambridge from **28 September to 2 October 2026**. The tutorial session is on **Thursday 1 October, 14:00–17:00**. Bradley Martin, Joe Hart and Isaac Parker will lead the session together, including MACE Practice I and II. Advanced notebooks are optional material for early finishers. Bradley will lead the MACE extensions segment on his own for approximately the final 45 minutes.
 
-**People involved:** Bradley Martin, Isaac Parker and Joe Hart. The schedule below follows the session allocation of Bradley Martin from 14:00–16:00 and Joe Hart and Isaac Parker from 16:00–17:00.
+**People involved:** Bradley Martin, Isaac Parker and Joe Hart. They will teach the practical notebooks together; the MACE extensions discussion is Bradley's individual segment.
 
 **Introductory slides:** [MACE in practice — LJC Summer School](https://docs.google.com/presentation/d/1LzDnWMp7qsf1ujuK5L8gjd2XYRywSiGsmZi62YMFEtk/edit)
 
-| Time | Activity |
-|---|---|
-| 14:00–14:50 | Bradley Martin · MACE Practice I: data, fitting and evaluation |
-| 14:50–15:00 | Break · 10 min |
-| 15:00–15:50 | Bradley Martin · MACE Practice II: iterative training and active learning |
-| 15:50–16:00 | Break · 10 min |
-| 16:00–16:15 | Optional advanced notebooks: theory or applications, as time and interest allow |
-| 16:15–16:50 | Joe Hart and Isaac Parker · Demonstrations of selected MACE extensions |
-| 16:50–17:00 | Break and close · 10 min |
+| Time | Activity | Facilitation |
+|---|---|---|
+| 14:00–14:50 | MACE Practice I: data, fitting and evaluation | Bradley Martin, Joe Hart and Isaac Parker |
+| 14:50–15:00 | Break · 10 min | — |
+| 15:00–15:50 | MACE Practice II: iterative training and active learning | Bradley Martin, Joe Hart and Isaac Parker |
+| 15:50–16:00 | Break · 10 min | — |
+| 16:00–16:05 | Questions and transition; advanced notebooks remain optional self-study | All three |
+| 16:05–16:50 | MACE extensions: MACEField walkthrough and selected comparisons | Bradley Martin · solo segment |
+| 16:50–17:00 | Break and close · 10 min | All three |
 
-The extension segment will use MACEField as the lead example and compare selected dipole, magnetic and long-range electrostatic adaptations. The full extension notebook set is available in the folder above.
+The extension segment will use MACEField as the lead example, followed by brief comparisons with dipole, magnetic and long-range electrostatic adaptations. The full extension notebook set is available in the folder above.
 
 ## Notebook credits and provenance
 

@@ -26,19 +26,19 @@ T00 is a compact map for discussion. T01 is the first detailed example and the c
 
 ## Session plan · Thursday 1 October 2026
 
-The three-hour session has a ten-minute break at the end of each hour. Bradley Martin leads the core practice notebooks from 14:00–16:00; Joe Hart and Isaac Parker lead the final session segment.
+Bradley Martin, Joe Hart and Isaac Parker teach the three-hour session together, including both core practice notebooks. Advanced notebooks are optional material for early finishers. Bradley presents the MACE extensions individually for approximately the final 45 minutes. A ten-minute break falls at the end of each hour.
 
-| Time | Activity |
-|---|---|
-| 14:00–14:50 | Bradley Martin · MACE Practice I: inspect data, fit and evaluate a model |
-| 14:50–15:00 | Break · 10 min |
-| 15:00–15:50 | Bradley Martin · MACE Practice II: iterative training and active learning |
-| 15:50–16:00 | Break · 10 min |
-| 16:00–16:15 | Optional advanced notebook exploration or questions |
-| 16:15–16:50 | Joe Hart and Isaac Parker · Demonstrations of selected MACE extensions |
-| 16:50–17:00 | Break and close · 10 min |
+| Time | Activity | Facilitation |
+|---|---|---|
+| 14:00–14:50 | MACE Practice I: inspect data, fit and evaluate a model | Bradley Martin, Joe Hart and Isaac Parker |
+| 14:50–15:00 | Break · 10 min | — |
+| 15:00–15:50 | MACE Practice II: iterative training and active learning | Bradley Martin, Joe Hart and Isaac Parker |
+| 15:50–16:00 | Break · 10 min | — |
+| 16:00–16:05 | Questions and transition; advanced notebooks remain optional self-study | All three |
+| 16:05–16:50 | MACE extensions: MACEField walkthrough and selected comparisons | Bradley Martin · solo segment |
+| 16:50–17:00 | Break and close · 10 min | All three |
 
-**Workshop team:** Bradley Martin, Isaac Parker and Joe Hart. The extension demonstration fits into the final 35 minutes; the four detailed examples are reference material for follow-up study.
+**Workshop team:** Bradley Martin, Isaac Parker and Joe Hart. The team teaches the practical route together; Bradley leads the extension segment individually. The four detailed extension notebooks are reference material for follow-up study.
 
 ## Repository map
 
