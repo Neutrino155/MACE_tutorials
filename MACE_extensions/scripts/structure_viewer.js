@@ -111,7 +111,7 @@ function createMaceStructureViewer(host, spec) {
     return input;
   };
   addToggle("cell", "showCell", spec.showCell, periodic);
-  addToggle("bonds", "showBonds", true);
+  addToggle("bonds", "showBonds", Boolean(spec.showBonds));
   addToggle("polyhedra", "showPolyhedra", true);
   addToggle("labels", "showLabels", false);
 
@@ -143,7 +143,7 @@ function createMaceStructureViewer(host, spec) {
   const context = canvas.getContext("2d");
   const state = {
     frame: 0, view: "3d", yaw: 0.72, pitch: -0.42, zoom: 1, pan: { x: 0, y: 0 },
-    atomScale: 1.35, showCell: Boolean(spec.showCell), showBonds: true,
+    atomScale: 1.35, showCell: Boolean(spec.showCell), showBonds: Boolean(spec.showBonds),
     showPolyhedra: true, showLabels: false, selectedAtom: -1, timer: null,
     pointer: null, hoverAtom: -1,
   };

@@ -6,7 +6,7 @@ import inspect
 import os
 import subprocess
 import sys
-import warnings
+import time
 from pathlib import Path
 
 from IPython.display import HTML, display
@@ -80,10 +80,8 @@ def read_source(relative_path: str, start: int, stop: int, *, root: str | Path) 
 
 
 def train_mace(config: dict) -> Path:
-    """Write a normal MACE YAML config and run it in this notebook kernel."""
+    """Write a MACE config and stream its debug log without duplicate handlers."""
     import yaml
-
-    from mace.cli.run_train import main as run_train
 
     config = dict(config)
     model_dir = Path(config["model_dir"]).expanduser().resolve()
@@ -99,15 +97,62 @@ def train_mace(config: dict) -> Path:
     config_path = model_dir / "training.yml"
     config_path.write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
 
-    previous_argv = sys.argv[:]
+    # MACE's setup_logger adds handlers to the process-wide root logger. Running
+    # several fits in a notebook kernel therefore stacks console handlers and
+    # repeats every line. A fresh CLI process avoids that state leaking between
+    # fits; stream only its debug log into the cell output.
+    environment = os.environ.copy()
+    environment["PYTHONWARNINGS"] = "ignore::UserWarning,ignore::DeprecationWarning"
+    runtime_paths = [str(Path.cwd())]
+    runtime_paths.extend(
+        str(Path(path).expanduser().resolve())
+        for path in sys.path
+        if path and Path(path).expanduser().exists()
+    )
+    if environment.get("PYTHONPATH"):
+        runtime_paths.extend(environment["PYTHONPATH"].split(os.pathsep))
+    environment["PYTHONPATH"] = os.pathsep.join(dict.fromkeys(runtime_paths))
+
+    seed = config.get("seed", 123)
+    tag = f"{config['name']}_run-{seed}"
+    debug_log = Path(config["log_dir"]) / f"{tag}_debug.log"
+    offset = debug_log.stat().st_size if debug_log.exists() else 0
+    command = [
+        sys.executable,
+        "-m",
+        "mace.cli.run_train",
+        "--config",
+        str(config_path),
+    ]
+    process = subprocess.Popen(command, env=environment, stdout=subprocess.DEVNULL)
+
+    def stream_new_log_content() -> None:
+        nonlocal offset
+        if not debug_log.is_file():
+            return
+        size = debug_log.stat().st_size
+        if size < offset:  # The logger recreated the file for this run.
+            offset = 0
+        with debug_log.open("rb") as log_file:
+            log_file.seek(offset)
+            chunk = log_file.read()
+            offset = log_file.tell()
+        if chunk:
+            sys.stdout.write(chunk.decode("utf-8", errors="replace"))
+            sys.stdout.flush()
+
     try:
-        sys.argv = ["mace_run_train", "--config", str(config_path)]
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", UserWarning)
-            warnings.simplefilter("ignore", DeprecationWarning)
-            run_train()
-    finally:
-        sys.argv = previous_argv
+        while process.poll() is None:
+            stream_new_log_content()
+            time.sleep(0.2)
+        stream_new_log_content()
+    except BaseException:
+        if process.poll() is None:
+            process.terminate()
+            process.wait()
+        raise
+    if process.returncode:
+        raise subprocess.CalledProcessError(process.returncode, command)
     return config_path
 
 
