@@ -39,7 +39,7 @@ function createMaceStructureViewer(host, spec) {
   const header = make("div", "head");
   const heading = make("div");
   heading.append(make("h3", "title", spec.title || "Atomic structure"));
-  heading.append(make("p", "hint", "Drag to rotate · Shift-drag to pan · scroll or pinch to zoom · click an atom for details"));
+  heading.append(make("p", "hint", "Drag to rotate freely · Alt-drag to roll · Shift-drag to pan · XYZ inset shows view axes · scroll or pinch to zoom · click an atom for details"));
   header.append(heading);
 
   const toolbar = make("div", "toolbar");
@@ -343,8 +343,8 @@ function createMaceStructureViewer(host, spec) {
     }
     return [...faces.values()];
   }
-  function drawPolyhedra(frame, width, height) {
-    if (!state.showPolyhedra) return;
+  function projectedPolyhedronFaces(frame, width, height) {
+    if (!state.showPolyhedra) return [];
     const faces = [];
     (frame.polyhedra || []).forEach((poly) => {
       const vertices = poly.vectors.map((vector) => poly.origin.map((value, axis) => value + vector[axis]));
@@ -353,33 +353,34 @@ function createMaceStructureViewer(host, spec) {
         faces.push({ points, color: colorFor(poly.center), depth: points.reduce((sum, point) => sum + point.z, 0) / points.length });
       });
     });
-    faces.sort((a, b) => a.depth - b.depth);
-    faces.forEach((face) => {
-      context.beginPath(); face.points.forEach((point, index) => index ? context.lineTo(point.x, point.y) : context.moveTo(point.x, point.y));
-      context.closePath(); context.fillStyle = face.color; context.globalAlpha = 0.16; context.fill();
-      context.globalAlpha = 0.62; context.strokeStyle = face.color; context.lineWidth = 1.15; context.stroke();
-    });
-    context.globalAlpha = 1;
+    return faces;
   }
-  function drawBonds(frame, width, height) {
-    if (!state.showBonds) return;
-    const bonds = (frame.bonds || []).map((bond) => {
+  function drawPolyhedronFace(face) {
+    context.save();
+    context.beginPath(); face.points.forEach((point, index) => index ? context.lineTo(point.x, point.y) : context.moveTo(point.x, point.y));
+    context.closePath(); context.fillStyle = face.color; context.globalAlpha = 0.16; context.fill();
+    context.globalAlpha = 0.62; context.strokeStyle = face.color; context.lineWidth = 1.15; context.stroke();
+    context.restore();
+  }
+  function projectedBonds(frame, width, height) {
+    if (!state.showBonds) return [];
+    return (frame.bonds || []).map((bond) => {
       const shift = cart(bond.shift, frame.cell);
       const start = project(frame.positions[bond.i], frame, width, height);
       const end = project(frame.positions[bond.j].map((value, axis) => value + shift[axis]), frame, width, height);
       return { ...bond, start, end, depth: (start.z + end.z) / 2 };
-    }).sort((a, b) => a.depth - b.depth);
-    bonds.forEach((bond) => {
-      const a = bond.start, b = bond.end;
-      const strength = Math.max(0.3, Math.min(1, 1.3 - bond.ratio));
-      const lineWidth = Math.max(1.4, Math.min(4.5, Math.min(a.scale, b.scale) * (0.024 + 0.022 * strength)));
-      context.save(); context.lineCap = "round"; context.globalAlpha = 0.43 * strength; context.strokeStyle = "#203b4c";
-      context.lineWidth = lineWidth + 2; context.beginPath(); context.moveTo(a.x, a.y); context.lineTo(b.x, b.y); context.stroke();
-      const gradient = context.createLinearGradient(a.x, a.y, b.x, b.y);
-      gradient.addColorStop(0, colorFor(frame.symbols[bond.i])); gradient.addColorStop(0.5, "#e9eff2"); gradient.addColorStop(1, colorFor(frame.symbols[bond.j]));
-      context.globalAlpha = 0.85 * strength; context.strokeStyle = gradient; context.lineWidth = lineWidth;
-      context.beginPath(); context.moveTo(a.x, a.y); context.lineTo(b.x, b.y); context.stroke(); context.restore();
     });
+  }
+  function drawBond(frame, bond) {
+    const a = bond.start, b = bond.end;
+    const strength = Math.max(0.3, Math.min(1, 1.3 - bond.ratio));
+    const lineWidth = Math.max(1.4, Math.min(4.5, Math.min(a.scale, b.scale) * (0.024 + 0.022 * strength)));
+    context.save(); context.lineCap = "round"; context.globalAlpha = 0.43 * strength; context.strokeStyle = "#203b4c";
+    context.lineWidth = lineWidth + 2; context.beginPath(); context.moveTo(a.x, a.y); context.lineTo(b.x, b.y); context.stroke();
+    const gradient = context.createLinearGradient(a.x, a.y, b.x, b.y);
+    gradient.addColorStop(0, colorFor(frame.symbols[bond.i])); gradient.addColorStop(0.5, "#e9eff2"); gradient.addColorStop(1, colorFor(frame.symbols[bond.j]));
+    context.globalAlpha = 0.85 * strength; context.strokeStyle = gradient; context.lineWidth = lineWidth;
+    context.beginPath(); context.moveTo(a.x, a.y); context.lineTo(b.x, b.y); context.stroke(); context.restore();
   }
   function atomRadius(frame, index, point) {
     return Math.max(1, (displayRadii[frame.symbols[index]] || 0.9) * 0.18 * point.scale * state.atomScale);
@@ -431,6 +432,67 @@ function createMaceStructureViewer(host, spec) {
       context.font = "600 11px system-ui"; context.textAlign = "left"; context.fillText(vector.label || "Vector", b.x + 7, b.y - 7);
       context.restore();
     });
+  }
+  function drawOrientationWidget(width, height) {
+    const center = { x: width - 44, y: 44 };
+    const radius = 31;
+    const axisLength = 22;
+    const frame = currentFrame();
+    const axes = [
+      { vector: [1, 0, 0], label: "X", color: "#d64b45" },
+      { vector: [0, 1, 0], label: "Y", color: "#27825d" },
+      { vector: [0, 0, 1], label: "Z", color: "#3978b8" },
+    ].map((axis) => {
+      let direction;
+      if (state.view === "3d") {
+        direction = rotateVector(axis.vector, state.rotation);
+      } else {
+        const origin = centerOf(frame);
+        const start = project(origin, frame, width, height);
+        const end = project(origin.map((value, i) => value + axis.vector[i]), frame, width, height);
+        direction = [end.x - start.x, start.y - end.y, end.z - start.z];
+        const length = Math.hypot(...direction) || 1;
+        direction = direction.map((value) => value / length);
+      }
+      return { ...axis, direction };
+    });
+    axes.sort((a, b) => a.direction[2] - b.direction[2]);
+
+    context.save();
+    context.beginPath(); context.arc(center.x, center.y, radius, 0, 2 * Math.PI);
+    context.fillStyle = "#ffffffed"; context.fill();
+    context.strokeStyle = "#cbd8e0"; context.lineWidth = 1; context.stroke();
+    axes.forEach(({ direction, label, color }) => {
+      const end = {
+        x: center.x + direction[0] * axisLength,
+        y: center.y - direction[1] * axisLength,
+      };
+      const screenLength = Math.hypot(end.x - center.x, end.y - center.y);
+      context.globalAlpha = direction[2] < 0 ? 0.62 : 1;
+      context.strokeStyle = color; context.fillStyle = color; context.lineWidth = 2.5;
+      context.lineCap = "round"; context.setLineDash(direction[2] < -0.15 ? [3, 2] : []);
+      context.beginPath(); context.moveTo(center.x, center.y); context.lineTo(end.x, end.y); context.stroke();
+      context.setLineDash([]);
+      if (screenLength > 5) {
+        const angle = Math.atan2(end.y - center.y, end.x - center.x);
+        const head = 5;
+        context.beginPath(); context.moveTo(end.x, end.y);
+        context.lineTo(end.x - head * Math.cos(angle - 0.55), end.y - head * Math.sin(angle - 0.55));
+        context.lineTo(end.x - head * Math.cos(angle + 0.55), end.y - head * Math.sin(angle + 0.55));
+        context.closePath(); context.fill();
+      } else {
+        context.beginPath(); context.arc(end.x, end.y, 3, 0, 2 * Math.PI); context.fill();
+      }
+      context.globalAlpha = 1;
+      const labelX = end.x + (direction[0] > 0.12 ? 3 : direction[0] < -0.12 ? -3 : 0);
+      const labelY = end.y + (direction[1] > 0.12 ? -2 : direction[1] < -0.12 ? 2 : 0);
+      context.font = "700 9px system-ui";
+      context.textAlign = direction[0] > 0.12 ? "left" : direction[0] < -0.12 ? "right" : "center";
+      context.textBaseline = direction[1] > 0.12 ? "bottom" : direction[1] < -0.12 ? "top" : "middle";
+      context.lineWidth = 3; context.strokeStyle = "#ffffff"; context.strokeText(label, labelX, labelY);
+      context.fillStyle = color; context.fillText(label, labelX, labelY);
+    });
+    context.restore();
   }
   function drawLegend(frame) {
     legend.replaceChildren();
@@ -484,8 +546,13 @@ function createMaceStructureViewer(host, spec) {
     context.clearRect(0, 0, width, height);
     const frame = currentFrame();
     drawCell(frame, width, height);
-    drawPolyhedra(frame, width, height);
-    drawBonds(frame, width, height);
+    const renderItems = [];
+    projectedPolyhedronFaces(frame, width, height).forEach((face) => {
+      renderItems.push({ depth: face.depth, order: 0, kind: "polyhedron", item: face });
+    });
+    projectedBonds(frame, width, height).forEach((bond) => {
+      renderItems.push({ depth: bond.depth, order: 1, kind: "bond", item: bond });
+    });
     const renderAtoms = frame.positions.map((position, index) => ({
       point: project(position, frame, width, height), index, symbol: frame.symbols[index], image: false,
     }));
@@ -494,14 +561,22 @@ function createMaceStructureViewer(host, spec) {
         renderAtoms.push({ point: project(image.position, frame, width, height), symbol: image.symbol, image: true });
       });
     });
-    // Paint far atoms first so the closer camera-space atom covers them.
-    renderAtoms.sort((a, b) => a.point.z - b.point.z || Number(a.image) - Number(b.image) || (a.index ?? 0) - (b.index ?? 0));
     projectedAtoms = renderAtoms.filter((atom) => !atom.image);
     renderAtoms.forEach((atom) => {
-      if (atom.image) drawImageAtom(atom.symbol, atom.point);
-      else drawAtom(frame, atom.index, atom.point);
+      renderItems.push({ depth: atom.point.z, order: 2, kind: "atom", item: atom });
+    });
+    // Painter's order spans faces, bonds and atoms: far geometry is painted
+    // first, so nearer atoms cover hidden polyhedron faces and nearer faces
+    // remain visible through their translucent fill.
+    renderItems.sort((a, b) => a.depth - b.depth || a.order - b.order);
+    renderItems.forEach(({ kind, item }) => {
+      if (kind === "polyhedron") drawPolyhedronFace(item);
+      else if (kind === "bond") drawBond(frame, item);
+      else if (item.image) drawImageAtom(item.symbol, item.point);
+      else drawAtom(frame, item.index, item.point);
     });
     drawVectors(frame, width, height);
+    drawOrientationWidget(width, height);
     const label = spec.frameLabels && spec.frameLabels[state.frame] ? spec.frameLabels[state.frame] : "frame " + (state.frame + 1);
     caption.textContent = label + (periodic ? " · " + state.view + " view" : " · interactive structure");
     frameLabel.textContent = spec.frames.length > 1 ? (state.frame + 1) + " / " + spec.frames.length : "";
@@ -526,7 +601,8 @@ function createMaceStructureViewer(host, spec) {
     canvas.setPointerCapture(event.pointerId);
     state.pointer = {
       id: event.pointerId, x: event.clientX, y: event.clientY, moved: false,
-      pan: event.shiftKey, ball: state.view === "3d" && !event.shiftKey ? trackballPoint(event.clientX, event.clientY) : null,
+      pan: event.shiftKey, roll: event.altKey && !event.shiftKey,
+      ball: state.view === "3d" && !event.shiftKey && !event.altKey ? trackballPoint(event.clientX, event.clientY) : null,
     };
   });
   canvas.addEventListener("pointermove", (event) => {
@@ -535,9 +611,15 @@ function createMaceStructureViewer(host, spec) {
     if (Math.abs(dx) + Math.abs(dy) > 2) state.pointer.moved = true;
     if (state.pointer.pan) { state.pan.x += dx; state.pan.y += dy; }
     else if (state.view === "3d") {
-      const nextBall = trackballPoint(event.clientX, event.clientY);
-      rotateTrackball(state.pointer.ball, nextBall);
-      state.pointer.ball = nextBall;
+      if (state.pointer.roll) {
+        const angle = dx * 0.012;
+        const roll = [Math.cos(angle / 2), 0, 0, Math.sin(angle / 2)];
+        state.rotation = normalizeQuaternion(quaternionMultiply(roll, state.rotation));
+      } else {
+        const nextBall = trackballPoint(event.clientX, event.clientY);
+        rotateTrackball(state.pointer.ball, nextBall);
+        state.pointer.ball = nextBall;
+      }
     } else state.planeRotation += dx * 0.009;
     state.pointer.x = event.clientX; state.pointer.y = event.clientY; draw();
   });
