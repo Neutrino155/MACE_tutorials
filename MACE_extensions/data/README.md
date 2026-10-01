@@ -1,30 +1,30 @@
-# Extension tutorial training data
+# Extension teaching data
 
-Regenerate all deterministic teaching datasets from the repository root with:
+Regenerate the deterministic datasets from the repository root:
 
 ```bash
 python MACE_extensions/scripts/prepare_teaching_data.py
 ```
 
-These **analytic teaching datasets** make the model, parser and training paths runnable without external quantum-chemistry calculations. They are not DFT, experimental or production data.
+These analytic labels make each training example runnable without external quantum-chemistry calculations. They are not DFT, experimental or production data.
 
-| Files | Structure and target | Analytic labels |
+| Files | Structures and labels | Label model |
 |---|---|---|
-| `atomicdipoles_water_*.extxyz` | Neutral gas-phase water; `REF_energy`, `REF_forces`, and `REF_dipoles` in eV, eV/Å and e Å | Fixed-charge dipoles `q(O)=-0.8e`, `q(H)=+0.4e`; harmonic O–H stretch and H–O–H bend energy/force labels |
-| `magnetic_fe2_*.extxyz` | Fe dimer; `REF_magmom`, `REF_magforces`, energy and forces | Exponential pair repulsion plus exchange `J(r) m1·m2`; analytic derivatives |
-| `macefield_batio3_toy_*.extxyz` | Periodic five-atom BaTiO₃-like cell; field, energy, forces, polarization, Born charges, strain and dielectric susceptibility | One-coordinate Landau surface with polynomial mode, mode–strain and dielectric response; cubic/tetragonal Ti charge and unstrained clamped-ion dielectric anchors from literature.¹˒² |
-| `maceles_water_dimer_*.extxyz` | Two rigid water molecules; `REF_energy` and `REF_forces` in eV and eV/Å | Fixed-charge Coulomb energy plus a short-range O–O repulsion; both train and validation files carry both labels |
+| `atomicdipoles_water_*.extxyz` | Neutral water; `REF_energy`, `REF_forces`, `REF_dipoles` | Harmonic O–H and H–O–H terms with fixed-charge dipoles (`q(O)=-0.8e`, `q(H)=+0.4e`) |
+| `magnetic_fe2_*.extxyz` | Fe dimer; energy, forces, `REF_magmom`, `REF_magforces` | Exponential pair repulsion and exchange `J(r) m1·m2` |
+| `macefield_batio3_toy_*.extxyz` | Periodic five-atom BaTiO₃-like cell; electric field, `REF_energy`, `REF_forces`, `REF_polarization` | Fixed-cell one-coordinate Landau double well with linear field–dipole coupling |
+| `maceles_water_dimer_*.extxyz` | Two rigid water molecules; `REF_energy`, `REF_forces` | Fixed-charge Coulomb energy plus short-range O–O repulsion |
 
-The AtomicDipolesMACE run deliberately uses a dipole-only loss: its model class returns a dipole, not energy or forces. The additional energy/force labels make the same water data reusable with `EnergyDipolesMACE` or another energy-force model.
+The MACEField data contain **345 training** and **132 validation** structures. The cell is fixed at 3.90 × 3.90 × 4.10 Å throughout. Only the Ti displacement along z varies. Training fields are z-directed and span −0.12 to +0.12 V/Å, including points near the model's switching fields. The validation set uses different displacements and field values from training. It checks interpolation within this analytic surface; it is not an independent physical test set.
 
-The MACEField toy keeps zero-strain minima at Ti displacements of ±0.12 Å and a 25 meV per-cell barrier. It has 675 training and 360 validation structures spanning 15 training and 8 interleaved validation soft-mode values, longitudinal and transverse fields, three axial strains (−2%, 0, +2%) and two biaxial strains (−1%, +1% on both in-plane axes). Validation displacements do not repeat any complete training structure. The longitudinal fields include the nonlinear analytic spinodals near ±0.0482 V/Å. This is an interpolation check over the same analytic model and strain/field families, not an independent physical test set.
+The target electric enthalpy is
 
-At zero strain, the active Ti Z*zz varies quadratically with displacement between the cubic value 7.068e at d = 0 and the tetragonal value 5.823e at d = ±0.12 Å. Strain adds linear and mode–strain terms. A compensating, equal-and-opposite correction to Ba Z*zz preserves the acoustic sum rule; other anisotropic tensor entries retain the tetragonal reference values. The clamped-ion susceptibility uses the calculated tetragonal ε∞ = diag(5.19, 5.19, 5.05) at the FE minima and has pedagogical mode and strain corrections away from them. Its relaxed-ion counterpart is calculated from the soft-mode curvature and is shown separately. Only the cubic/tetragonal Ti charge anchors and unstrained dielectric tensor are literature reference values; the remaining response coefficients, elastic energy, and all generated energy/force labels are analytic teaching choices, not DFT or experimental data.
+\[
+H(d,E_z)=B\left[\left(d/d_0\right)^2-1\right]^2-E_z Z d,
+\]
 
-The energy, forces, polarization, BECs and clamped-ion susceptibility are derivatives of one shared scalar field enthalpy. The field-dependent BEC includes the derivative of the state-dependent susceptibility; the force includes the derivative of the corresponding quadratic field-energy term. The mode-relaxed susceptibility follows by differentiating the equilibrium condition, and the relaxed piezoelectric response adds the mode's strain-mediated contribution to the clamped value. This model isolates derivative consistency and symmetry constraints, not a quantitative BaTiO₃ fit.
+with `d0=0.12 Å`, `B=0.025 eV/cell`, and a constant pedagogical mode charge `Z=5.8 e`. Energy, Ti force, and polarization `Pz=Zd/Ω` are derivatives of this same expression.
 
-The MACEField audit script checks both zero-field minima and follows the stable Ti-force root through a field cycle, staying inside the displacement interval sampled by training. This avoids letting an unconstrained optimizer escape into unsupported minima outside the toy data range. The response fine-tune adds polarization, Born-charge and susceptibility losses; re-run the audit after training to check that the double well and loop are preserved while held-out response errors improve. This one-coordinate model does not represent BaTiO₃ DFT, domains, thermal switching or an experimental coercive field.
+The toy shows how a field can tilt a double well and produce a history-dependent switching loop when a local minimum is followed through a field cycle. It does not model BaTiO₃ quantitatively, domain walls, thermal activation or an experimental coercive field.
 
-¹ Masuki et al., *Phys. Rev. B* **106**, 224104 (2022), Tables IV and VI, [doi:10.1103/PhysRevB.106.224104](https://doi.org/10.1103/PhysRevB.106.224104). ² Hermet et al., *J. Phys.: Condens. Matter* **21**, 215901 (2009), calculated tetragonal dielectric tensor, [doi:10.1088/0953-8984/21/21/215901](https://doi.org/10.1088/0953-8984/21/21/215901).
-
-The example checkpoints teach model loading and plotting; they are not evidence of chemical accuracy, transferability or uniquely interpretable latent charges. For research, use well-converged reference calculations, preserve units/provenance, and make structure-aware train/validation/test splits.
+AtomicDipolesMACE uses dipole labels for its dipole-only loss; energy and force labels are also provided for energy-force model variants. The teaching checkpoints demonstrate loading and plotting, not chemical accuracy or transferability. For research, use well-converged reference calculations and preserve units and provenance.

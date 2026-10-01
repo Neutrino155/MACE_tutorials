@@ -1,6 +1,6 @@
 # MACE extension notebooks
 
-These notebooks demonstrate four different changes around the MACE architecture. T00 gives a code-level recipe using MACEField as its example; T01–T04 then show field-conditioned response, dipole readout, magnetic inputs and long-range electrostatics. They are intended as a short closing demonstration after Practice I and II.
+These notebooks demonstrate four different changes around the MACE architecture. T00 gives a code-level recipe using MACEField as its example; T01–T04 then show electric-field switching, dipole readout, magnetic inputs and long-range electrostatics. They are intended as a short closing demonstration after Practice I and II.
 
 ## Source code used
 
@@ -29,4 +29,4 @@ python MACE_extensions/scripts/prepare_teaching_data.py
 
 The water dipole files include energy, force and dipole labels. T02 deliberately trains `AtomicDipolesMACE` against the dipole-only loss, because that model class does not predict energy or forces; the extra labels can be used with `EnergyDipolesMACE`. The water-dimer LES files already include energy and force labels in both splits, and T04 checks their presence before training.
 
-All generated labels are analytic teaching targets, not DFT or experimental data. See the data guide for units, label definitions, the MACEField toy's response surface and its scope limits.
+All generated labels are analytic teaching targets, not DFT or experimental data. See the data guide for units, label definitions, the MACEField switching model and its scope limits.

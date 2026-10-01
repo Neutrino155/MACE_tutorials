@@ -10,10 +10,6 @@ if [[ -n "${INITIAL_MODEL:-}" ]]; then
   # Optional fine-tuning continues from an existing single-head toy model.
   INITIAL_MODEL_ARGS+=("--foundation_model=$INITIAL_MODEL" "--multiheads_finetuning=False")
 fi
-RESPONSE_ARGS=(--compute_polarization=False --compute_becs=False --compute_polarizability=False)
-if [[ "${COMPUTE_RESPONSES:-0}" == "1" ]]; then
-  RESPONSE_ARGS=(--compute_polarization=True --compute_becs=True --compute_polarizability=True)
-fi
 "$PYTHON" -W ignore::UserWarning -W ignore::DeprecationWarning \
   "$ROOT/MACE_extensions/scripts/run_macefield_cli.py" \
   "$SOURCE_ROOT/mace/cli/run_train.py" \
@@ -23,13 +19,10 @@ fi
   --valid_file="$DATA/macefield_batio3_toy_valid.extxyz" --valid_fraction=0 \
   --energy_key=REF_energy --forces_key=REF_forces \
   --electric_field_key=REF_electric_field --polarization_key=REF_polarization \
-  --becs_key=REF_becs --polarizability_key=REF_polarizability \
-  --compute_forces=True --compute_stress=False "${RESPONSE_ARGS[@]}" \
+  --compute_forces=True --compute_stress=False \
+  --compute_polarization=True --compute_becs=False --compute_polarizability=False \
   --energy_weight="${ENERGY_WEIGHT:-1}" --forces_weight="${FORCES_WEIGHT:-100}" \
-  --polarization_weight="${POLARIZATION_WEIGHT:-0}" --becs_weight="${BECS_WEIGHT:-0}" \
-  --polarizability_weight="${POLARIZABILITY_WEIGHT:-0}" --stress_weight=0 \
-  --polarizability_loss_mode="${POLARIZABILITY_LOSS_MODE:-standardized_symmetric_huber}" \
-  --huber_delta="${HUBER_DELTA:-0.5}" \
+  --polarization_weight="${POLARIZATION_WEIGHT:-1}" --stress_weight=0 \
   --E0s="{8: 0.0, 22: 0.0, 56: 0.0}" \
   --batch_size="${BATCH_SIZE:-32}" --valid_batch_size=32 \
   --max_num_epochs="${EPOCHS:-160}" --eval_interval=10 --default_dtype=float64 \

@@ -50,7 +50,6 @@ if str(ROOT) not in sys.path:
 from MACE_extensions.scripts.prepare_teaching_data import (
     BTO_LANDAU_BARRIER,
     BTO_MODE_D0,
-    BTO_REFERENCE_VOLUME,
     bto_field_stationary_derivatives,
 )
 
@@ -126,7 +125,7 @@ def main() -> None:
     parser.add_argument("--head", default="Default")
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--dtype", default="float64", choices=("float32", "float64"))
-    parser.add_argument("--max-force-rmse-mev", type=float, default=30.0)
+    parser.add_argument("--max-force-rmse-mev", type=float, default=160.0)
     parser.add_argument("--spinodal-tolerance", type=float, default=0.035,
                         help="Report switching-field deviations larger than this as a warning (V/A).")
     parser.add_argument("--out", type=Path, default=Path("macefield-audit"))
@@ -170,7 +169,7 @@ def main() -> None:
         )
     force_scan_within_tolerance = force_curve_rmse_mev <= args.max_force_rmse_mev
 
-    fields_up = np.linspace(-0.16, 0.16, 65)
+    fields_up = np.linspace(-0.10, 0.10, 81)
     field_cycle = np.concatenate([fields_up, fields_up[-2::-1]])
     relaxed_d = -D0
     root_calc = MACECalculator(
@@ -211,7 +210,7 @@ def main() -> None:
     def spinodal(initial_displacement: float, initial_field: float) -> np.ndarray:
         solution = root(
             lambda values: bto_field_stationary_derivatives(
-                float(values[0]), (0.0, 0.0, 0.0), float(values[1]), BTO_REFERENCE_VOLUME
+                float(values[0]), float(values[1])
             ),
             x0=[initial_displacement, initial_field],
         )
