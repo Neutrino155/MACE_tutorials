@@ -6,7 +6,7 @@ Written for first-year PhD students in computational chemistry, this repository 
 
 ### Workshop slides
 
-Download the [editable PowerPoint deck](presentations/MACE-in-practice-LJC-Summer-School-Introduction.pptx) or open the [Google Slides version](https://docs.google.com/presentation/d/1LzDnWMp7qsf1ujuK5L8gjd2XYRywSiGsmZi62YMFEtk/edit).
+Slides associated with the tutorials are available as a [downloadable PowerPoint deck](presentations/MACE-in-practice-LJC-Summer-School-Introduction.pptx) or as [Google Slides](https://docs.google.com/presentation/d/1LzDnWMp7qsf1ujuK5L8gjd2XYRywSiGsmZi62YMFEtk/edit).
 
 ### Core workshop: work through these in order
 
@@ -37,14 +37,13 @@ Open a notebook from [`MACE_advanced/`](MACE_advanced/) when you are ready for m
 
 ## Lennard-Jones Centre summer school
 
-These materials support the Lennard-Jones Centre and Thomas Young Centre Summer School on Atomic-Scale Modelling, held in Cambridge from **28 September to 2 October 2026**. The tutorial session is on **Thursday 1 October, 14:00–17:00**. Bradley Martin, Joe Hart and Isaac Parker lead the two core practice notebooks together; advanced notebooks are optional, and Bradley leads the MACE extension demonstration individually during the final 30–45 minutes. A ten-minute break is scheduled each hour.
+These materials support the Lennard-Jones Centre and Thomas Young Centre Summer School on Atomic-Scale Modelling, held in Cambridge from **28 September to 2 October 2026**. The tutorial session is on **Thursday 1 October, 14:00–17:00**, led by **Bradley Martin**, **Joe Hart** and **Isaac Parker**.
 
 ## Notebook credits and provenance
 
-The notebooks in this repository are the workshop materials; use the links above to navigate between them without needing another tutorial collection. The source notebooks for [Practice I](MACE_in_practice_I/T01-MACE-Practice-I.ipynb), [Practice II](MACE_in_practice_II/T01-MACE-Practice-II.ipynb), the two advanced [application examples](MACE_advanced/), and the [MACE Theory notebook](MACE_advanced/T03-MACE-Theory.ipynb) were made by **Ioan Magdău, Ilyes Batatia and Will Baldwin**, and further refined by **Ioan Magdău and Alin Elena**. The [MACE extension notebooks](MACE_extensions/) were made by **Bradley Martin**. The workshop team is **Bradley Martin, Isaac Parker and Joe Hart**.
-
+The notebooks in this repository are the workshop materials; use the links above to navigate between them without needing another tutorial collection. The source notebooks for [Practice I](MACE_in_practice_I/T01-MACE-Practice-I.ipynb), [Practice II](MACE_in_practice_II/T01-MACE-Practice-II.ipynb), the two advanced [application examples](MACE_advanced/), and the [MACE Theory notebook](MACE_advanced/T03-MACE-Theory.ipynb) were made by **Ioan Magdău, Ilyes Batatia and Will Baldwin**, and further refined by **Ioan Magdău and Alin Elena**. The [MACE extension notebooks](MACE_extensions/) were made by **Bradley Martin**. 
 ## Running the notebooks
 
-Open notebooks in Jupyter or use their **Open in Colab** links. You can launch Jupyter from the repository root or the notebook folder; setup cells select the notebook folder and use the datasets included here. Install each notebook's Python dependencies in your local environment before running it. The extension examples include local/Colab setup and training scripts; see [`MACE_extensions/README.md`](MACE_extensions/README.md) and [`MACE_extensions/data/README.md`](MACE_extensions/data/README.md) for their source and data requirements.
+Open notebooks in Jupyter or use their **Open in Colab** links. You can launch Jupyter from the repository root or the notebook folder; setup cells select the notebook folder and use the datasets included here. Install each notebook's Python dependencies in your local environment before running it.
 
 The extension datasets are small analytic teaching targets, not DFT or experimental data. The model-specific notebooks explain what each example demonstrates and the limits of its scientific interpretation.
