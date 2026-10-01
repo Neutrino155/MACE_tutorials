@@ -3,7 +3,7 @@
 
 Example:
     MACEFIELD_ROOT=../mace-field-develop python MACE_extensions/scripts/audit_macefield_surface.py \
-        --model /tmp/macefield-energy-force/MACEField-Landau_run-23.model \
+        --model /tmp/macefield-energy-force/MACEField-Landau.model \
         --head Default --out /tmp/macefield-audit
 
 This checks the analytic one-mode teaching system only. A loop with shifted

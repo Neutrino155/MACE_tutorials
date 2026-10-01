@@ -23,7 +23,7 @@ export FREEZE="${FREEZE:-7}"
 export COMPUTE_RESPONSES=1
 source "$SCRIPT_DIR/common.sh"
 bash "$SCRIPT_DIR/train_macefield.sh"
-MODEL_PATH="$OUT_DIR/MACEField-Landau_run-23.model"
+MODEL_PATH="$OUT_DIR/MACEField-Landau.model"
 "$PYTHON" "$ROOT/MACE_extensions/scripts/calibrate_macefield_energy_offset.py" \
   --model "$MODEL_PATH" \
   --train-file "$DATA/macefield_batio3_toy_train.extxyz"
