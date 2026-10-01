@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Install only the optional dependencies needed by an extension notebook or training script."""
+"""Install optional dependencies for the MACE extension notebooks."""
 from __future__ import annotations
-import argparse
+
 import importlib
+import importlib.metadata
 import importlib.util
 import os
 import shutil
@@ -10,11 +11,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SOURCE = ROOT.parent / "mace-field-develop"
-if not (DEFAULT_SOURCE / "mace/cli/run_train.py").is_file():
-    DEFAULT_SOURCE = ROOT.parent / "mace-field"
-SOURCE_ROOT = Path(os.environ.get("MACEFIELD_ROOT", DEFAULT_SOURCE)).expanduser().resolve()
+
 
 def has(name: str) -> bool:
     try:
@@ -22,63 +21,91 @@ def has(name: str) -> bool:
     except (ImportError, ValueError):
         return False
 
+
 def install(*args: str) -> None:
     subprocess.run([sys.executable, "-m", "pip", "install", *args], check=True)
     importlib.invalidate_caches()
 
-def install_editable() -> None:
-    if shutil.which("uv") is None:
-        install("uv")
-    subprocess.run(
-        ["uv", "pip", "install", "--system", "--editable", str(SOURCE_ROOT)],
-        check=True,
-    )
-    importlib.invalidate_caches()
+
+def _source_root(feature: str, requested: str | Path | None) -> Path:
+    if requested is not None:
+        return Path(requested).expanduser().resolve()
+    if feature == "field":
+        explicit = os.environ.get("MACEFIELD_ROOT")
+        default = ROOT.parent / "mace-field-develop"
+    else:
+        explicit = os.environ.get("MACE_ROOT")
+        default = ROOT.parent / "mace-upstream-tutorial"
+    return Path(explicit).expanduser().resolve() if explicit else default.resolve()
 
 
-def install_les() -> None:
-    requirements = SOURCE_ROOT / "requirements" / "les.txt"
-    if not requirements.is_file():
-        raise FileNotFoundError(f"LES requirements file not found: {requirements}")
-    if shutil.which("uv") is None:
-        install("uv")
-    subprocess.run(
-        ["uv", "pip", "install", "--system", "--requirement", str(requirements)],
-        check=True,
+def _is_importing_from(source: Path) -> bool:
+    spec = importlib.util.find_spec("mace")
+    return bool(
+        spec
+        and spec.origin
+        and Path(spec.origin).resolve().is_relative_to(source)
     )
-    importlib.invalidate_caches()
-    if not has("les"):
-        raise ImportError(
-            f"LES requirements installed, but Python cannot import 'les' from {requirements}"
+
+
+def _check_loaded_module(source: Path) -> None:
+    module = sys.modules.get("mace")
+    origin = getattr(module, "__file__", None)
+    if origin and not Path(origin).resolve().is_relative_to(source):
+        raise RuntimeError(
+            f"This kernel already imported MACE from {Path(origin).resolve()}. "
+            f"Restart the kernel to switch to {source}."
         )
 
-def ensure(feature: str) -> None:
-    features = {item.strip().lower() for item in feature.split(",") if item.strip()}
-    if "all" in features:
-        features = {"base", "magnetic", "les"}
-    unknown = features - {"base", "magnetic", "les"}
-    if unknown:
-        raise ValueError(f"Unknown feature(s): {sorted(unknown)}")
-    if "base" in features:
-        if not (SOURCE_ROOT / "mace/cli/run_train.py").is_file():
-            raise FileNotFoundError(f"Set MACEFIELD_ROOT to the MACE-Field checkout; not found at {SOURCE_ROOT}")
-        sys.path.insert(0, str(SOURCE_ROOT))
+
+def _has_sphericart_v2() -> bool:
+    try:
+        from packaging.version import Version
+
+        return Version(importlib.metadata.version("sphericart-torch")) >= Version("2.0")
+    except (importlib.metadata.PackageNotFoundError, ValueError):
+        return False
+
+
+def ensure(feature: str, source_root: str | Path | None = None) -> None:
+    """Put the selected MACE checkout first and install its optional extension."""
+    if feature == "base":
+        feature = "upstream"
+    if feature not in {"field", "upstream", "magnetic", "les"}:
+        raise ValueError("feature must be 'field', 'upstream', 'magnetic', or 'les'")
+
+    source = _source_root(feature, source_root)
+    if not (source / "mace/cli/run_train.py").is_file():
+        raise FileNotFoundError(f"MACE source is missing at {source}; rerun the notebook setup cell.")
+    sys.path.insert(0, str(source))
+    importlib.invalidate_caches()
+    _check_loaded_module(source)
+    if not _is_importing_from(source):
+        install("--editable", str(source))
         importlib.invalidate_caches()
-        module_spec = importlib.util.find_spec("mace")
-        source_import = bool(
-            module_spec and module_spec.origin
-            and Path(module_spec.origin).resolve().is_relative_to(SOURCE_ROOT)
-        )
-        if not source_import:
-            install_editable()
-    if "magnetic" in features and not has("sphericart"):
-        install("sphericart-torch==1.0.9")
-    if "les" in features and not has("les"):
-        install_les()
-    print("Dependencies ready for:", ", ".join(sorted(features)))
+    if not _is_importing_from(source):
+        raise ImportError(f"Python is not importing MACE from {source}")
 
-def main():
+    if feature == "magnetic" and not _has_sphericart_v2():
+        install("sphericart-torch>=2.0", "torch-geometric")
+    if feature == "les" and not has("les"):
+        requirements = source / "requirements" / "les.txt"
+        if not requirements.is_file():
+            raise FileNotFoundError(f"LES requirements file not found: {requirements}")
+        install("--requirement", str(requirements))
+
+    print(f"MACE source ready: {source}")
+
+
+def main() -> None:
+    import argparse
+
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--feature", default="base", help="base, magnetic, les, or all")
-    ensure(parser.parse_args().feature)
-if __name__ == "__main__": main()
+    parser.add_argument("--feature", default="upstream", help="upstream, magnetic, les, or field")
+    parser.add_argument("--source-root", type=Path)
+    args = parser.parse_args()
+    ensure(args.feature, args.source_root)
+
+
+if __name__ == "__main__":
+    main()

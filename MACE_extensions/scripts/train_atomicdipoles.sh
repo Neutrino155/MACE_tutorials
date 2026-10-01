@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+SOURCE_FEATURE=upstream
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
-"$PYTHON" "$ROOT/MACE_extensions/scripts/bootstrap.py" --feature="base"
+"$PYTHON" "$ROOT/MACE_extensions/scripts/bootstrap.py" --feature="$SOURCE_FEATURE" --source-root="$SOURCE_ROOT"
 OUT="${OUT_DIR:-$ROOT/MACE_extensions/models/atomicdipoles}"
 mkdir -p "$OUT"
 "$PYTHON" "$SOURCE_ROOT/mace/cli/run_train.py" \
@@ -15,5 +16,6 @@ mkdir -p "$OUT"
   --batch_size="${BATCH_SIZE:-8}" --valid_batch_size=8 \
   --max_num_epochs="${EPOCHS:-100}" --eval_interval=10 --default_dtype=float64 \
   --device="${DEVICE:-cpu}" --seed=21 \
+  --plot=False \
   --model_dir="$OUT" --checkpoints_dir="$OUT" --log_dir="$OUT" \
   --results_dir="$OUT" --work_dir="$OUT"

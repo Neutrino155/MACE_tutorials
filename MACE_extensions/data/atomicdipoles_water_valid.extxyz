@@ -1,70 +1,70 @@
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="-0.05714827327095745 -0.3960180092744729 0.42596156821306613" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_0_bond_0 pbc="F F F"
-O        1.17546529      -0.42136164      -0.79112795
-H        1.68201890      -1.03741975      -0.29365850
-H        0.52604100      -0.79534856      -0.22369348
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="-0.05714827327095745 -0.3960180092744729 0.42596156821306613" REF_energy=0.05947694983928958 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_0_bond_0 pbc="F F F"
+O        1.17546529      -0.42136164      -0.79112795       0.02198216       0.15232883      -0.16384666
+H        1.68201890      -1.03741975      -0.29365850       0.38747399      -0.15960625       0.05780642
+H        0.52604100      -0.79534856      -0.22369348      -0.40945615       0.00727742       0.10604024
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="0.09195722063751222 -0.6021236866714774 -0.014697606519854502" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_0_bond_1 pbc="F F F"
-O       -1.35448460      -0.19745330      -0.58524245
-H       -1.48289273      -0.97345241      -1.16982498
-H       -0.99618342      -0.92676341      -0.03740394
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="0.09195722063751222 -0.6021236866714774 -0.014697606519854457" REF_energy=0.06395694983928903 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_0_bond_1 pbc="F F F"
+O       -1.35448460      -0.19745330      -0.58524245       0.15183111      -0.99416999      -0.02426731
+H       -1.48289273      -0.97345241      -1.16982498      -0.03509792       0.50100054       0.10710358
+H       -0.99618342      -0.92676341      -0.03740394      -0.11673319       0.49316944      -0.08283627
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="0.20462187566381262 0.4971684534898687 0.11588442224222512" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_1_bond_0 pbc="F F F"
-O        0.77139488      -0.39129993       0.29655199
-H        1.23544230       0.28518168      -0.16239530
-H        0.81890214       0.17513959       1.04521034
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="0.20462187566381262 0.4971684534898687 0.11588442224222506" REF_energy=0.032037012664902824 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_1_bond_0 pbc="F F F"
+O        0.77139488      -0.39129993       0.29655199      -0.09995420      -0.24285809      -0.05660751
+H        1.23544230       0.28518168      -0.16239530       0.16704618       0.15235650      -0.31109516
+H        0.81890214       0.17513959       1.04521034      -0.06709198       0.09050159       0.36770267
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="-0.5378554621525418 0.05095708389025955 0.1920442527047124" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_1_bond_1 pbc="F F F"
-O        0.99317306       0.35439225       0.31580578
-H        0.11321772      -0.01224205       0.08852209
-H        0.52848975       0.84841926       1.02320011
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="-0.5378554621525418 0.05095708389025955 0.1920442527047125" REF_energy=0.03651701266490274 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_1_bond_1 pbc="F F F"
+O        0.99317306       0.35439225       0.31580578      -0.83667599       0.07926771       0.29873977
+H        0.11321772      -0.01224205       0.08852209       0.47748236       0.08294428      -0.01625006
+H        0.52848975       0.84841926       1.02320011       0.35919363      -0.16221198      -0.28248971
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="0.43137147186784636 0.2753203386330704 0.033846446334001634" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_2_bond_0 pbc="F F F"
-O       -1.33580657       0.48804621      -0.55056432
-H       -0.42804383       0.25222522      -0.48767333
-H       -1.16514063       1.41216803      -0.52883919
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="0.43137147186784636 0.2753203386330704 0.033846446334001634" REF_energy=0.014344832923690744 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_2_bond_0 pbc="F F F"
+O       -1.33580657       0.48804621      -0.55056432      -0.27450370      -0.17520039      -0.02153822
+H       -0.42804383       0.25222522      -0.48767333       0.30783224      -0.18083606       0.02029580
+H       -1.16514063       1.41216803      -0.52883919      -0.03332855       0.35603645       0.00124243
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="-0.3541413606708897 -0.2734110595957747 0.29278007375853327" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_2_bond_1 pbc="F F F"
-O        1.10865467       1.21959673       0.56793992
-H        0.56889147       0.42121245       0.39006849
-H        0.76306446       1.33445335       1.47776153
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="-0.35414136067088975 -0.2734110595957747 0.29278007375853327" REF_energy=0.018824832923690908 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_2_bond_1 pbc="F F F"
+O        1.10865467       1.21959673       0.56793992      -0.50271561      -0.38811622       0.41561119
+H        0.56889147       0.42121245       0.39006849       0.28787857       0.36582380      -0.00322831
+H        0.76306446       1.33445335       1.47776153       0.21483704       0.02229242      -0.41238288
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="-0.3664490741220442 -0.21152198180293114 0.21198603936852556" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_3_bond_0 pbc="F F F"
-O       -1.25312625       0.21221156      -1.48153299
-H       -1.72513769       0.47675030      -0.71288193
-H       -1.69723750      -0.58113213      -1.72021896
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="-0.3664490741220442 -0.21152198180293114 0.21198603936852556" REF_energy=0.00640041061565322 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_3_bond_0 pbc="F F F"
+O       -1.25312625       0.21221156      -1.48153299       0.30710555       0.17726767      -0.17765658
+H       -1.72513769       0.47675030      -0.71288193      -0.15893907       0.11559642       0.28330047
+H       -1.69723750      -0.58113213      -1.72021896      -0.14816648      -0.29286410      -0.10564389
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="0.31491738492006044 -0.1013583565483055 0.36603885055728275" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_3_bond_1 pbc="F F F"
-O       -0.80386345      -0.50671896      -1.32241606
-H       -0.02665301       0.00656462      -1.01764747
-H       -0.79378043      -1.27339843      -0.71208753
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="0.31491738492006044 -0.1013583565483055 0.36603885055728275" REF_energy=0.010880410615653265 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_3_bond_1 pbc="F F F"
+O       -0.80386345      -0.50671896      -1.32241606       0.38859442      -0.12507182       0.45167609
+H       -0.02665301       0.00656462      -1.01764747      -0.36565958      -0.22338464      -0.15758149
+H       -0.79378043      -1.27339843      -0.71208753      -0.02293484       0.34845647      -0.29409460
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="-0.27452065683487503 0.33205321445720726 0.020595926149730936" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_4_bond_0 pbc="F F F"
-O       -1.24911705       1.29624723      -1.12500132
-H       -2.06473775       1.29331855      -0.65771738
-H       -1.11979798       2.12930894      -1.54079545
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="-0.27452065683487503 0.33205321445720726 0.020595926149730936" REF_energy=0.008203745740790844 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_4_bond_0 pbc="F F F"
+O       -1.24911705       1.29624723      -1.12500132       0.30420415      -0.36795762      -0.02282293
+H       -2.06473775       1.29331855      -0.65771738      -0.30710100       0.04685091       0.15626318
+H       -1.11979798       2.12930894      -1.54079545       0.00289684       0.32110671      -0.13344025
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="0.2273944965527018 0.09643621060286561 0.37577577571486953" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_4_bond_1 pbc="F F F"
-O       -0.26992971       0.60019817      -0.08300322
-H       -0.66855864       0.94989185       0.74113833
-H        0.69718546       0.49159501       0.03229466
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="0.2273944965527018 0.09643621060286561 0.37577577571486953" REF_energy=0.01268374574079042 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_4_bond_1 pbc="F F F"
+O       -0.26992971       0.60019817      -0.08300322       0.22409337       0.09503623       0.37032057
+H       -0.66855864       0.94989185       0.74113833       0.22950690      -0.16213177      -0.36243222
+H        0.69718546       0.49159501       0.03229466      -0.45360027       0.06709555      -0.00788835
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="0.16516809346371503 -0.2456332564047283 -0.24978346808532828" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_5_bond_0 pbc="F F F"
-O        0.76503976      -0.84147603       0.32672343
-H        0.78064131      -1.76605604       0.49556771
-H        1.16235843      -0.53097915      -0.46657951
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="0.16516809346371503 -0.2456332564047283 -0.24978346808532825" REF_energy=0.019754838299102857 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_5_bond_0 pbc="F F F"
+O        0.76503976      -0.84147603       0.32672343      -0.24260131       0.36078972       0.36688561
+H        0.78064131      -1.76605604       0.49556771       0.06672201      -0.35698852      -0.04587315
+H        1.16235843      -0.53097915      -0.46657951       0.17587930      -0.00380120      -0.32101246
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="0.3734607521262452 0.12432852440202968 0.09008733647661504" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_5_bond_1 pbc="F F F"
-O        0.48465917      -0.50730155      -1.11425138
-H        1.24966364      -0.76251202      -1.67105994
-H        0.65330658       0.05873024      -0.33222449
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="0.3734607521262452 0.12432852440202968 0.09008733647661504" REF_energy=0.0242348382991027 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_5_bond_1 pbc="F F F"
+O        0.48465917      -0.50730155      -1.11425138       0.24410871       0.08126604       0.05888464
+H        1.24966364      -0.76251202      -1.67105994      -0.28274364       0.18065190       0.33130884
+H        0.65330658       0.05873024      -0.33222449       0.03863492      -0.26191794      -0.39019348
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="0.11821998889303531 -0.1861402965016378 0.2606345498743625" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_6_bond_0 pbc="F F F"
-O        1.02723686       0.20988585       1.28873588
-H        0.85880875       0.53332314       2.15511933
-H        1.49121494      -0.57890218       1.07393879
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="0.11821998889303542 -0.18614029650163766 0.2606345498743624" REF_energy=0.04105368829058976 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_6_bond_0 pbc="F F F"
+O        1.02723686       0.20988585       1.28873588      -0.23121137       0.36404802      -0.50974181
+H        0.85880875       0.53332314       2.15511933       0.03406770      -0.03862153       0.39427069
+H        1.49121494      -0.57890218       1.07393879       0.19714367      -0.32542649       0.11547112
 3
-Properties=species:S:1:pos:R:3 REF_dipoles="0.013815711883083268 -0.31547690053480815 0.16422114759547018" label_source="analytic neutral fixed charges; e Angstrom" config_type=water_angle_6_bond_1 pbc="F F F"
-O        0.55205247      -1.48709943      -0.31394458
-H        1.20466142      -1.58321007       0.41080661
-H       -0.06601721      -2.17968104      -0.62814291
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_dipoles="0.013815711883083268 -0.31547690053480815 0.16422114759547018" REF_energy=0.04553368829058918 label_source="analytic fixed-charge dipole and harmonic water energy/forces; e Angstrom, eV, eV/Angstrom" config_type=water_angle_6_bond_1 pbc="F F F"
+O        0.55205247      -1.48709943      -0.31394458       0.00284082      -0.06486910       0.03376754
+H        1.20466142      -1.58321007       0.41080661      -0.36023081      -0.13599512      -0.31025920
+H       -0.06601721      -2.17968104      -0.62814291       0.35738999       0.20086422       0.27649166

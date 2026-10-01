@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
+SOURCE_FEATURE=magnetic
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 if ! grep -q 'class MagneticScaleShiftMACE' "$SOURCE_ROOT/mace/modules/extensions.py"; then
-  echo "Magnetic training requires a MACE-Field checkout with MagneticScaleShiftMACE; use the documented compatible source revision and set MACEFIELD_ROOT." >&2
+  echo "Magnetic training requires an ACEsuit/MACE checkout that provides MagneticScaleShiftMACE; set MACE_ROOT to a compatible checkout." >&2
   exit 2
 fi
-"$PYTHON" "$ROOT/MACE_extensions/scripts/bootstrap.py" --feature="magnetic"
+"$PYTHON" "$ROOT/MACE_extensions/scripts/bootstrap.py" --feature="$SOURCE_FEATURE" --source-root="$SOURCE_ROOT"
 OUT="${OUT_DIR:-$ROOT/MACE_extensions/models/magnetic}"
 mkdir -p "$OUT"
 "$PYTHON" "$SOURCE_ROOT/mace/cli/run_train.py" \
@@ -24,5 +25,6 @@ mkdir -p "$OUT"
   --batch_size="${BATCH_SIZE:-8}" --valid_batch_size=8 \
   --max_num_epochs="${EPOCHS:-100}" --eval_interval=10 --default_dtype=float64 \
   --device="${DEVICE:-cpu}" --seed=22 \
+  --plot=False \
   --model_dir="$OUT" --checkpoints_dir="$OUT" --log_dir="$OUT" \
   --results_dir="$OUT" --work_dir="$OUT"

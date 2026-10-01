@@ -3,7 +3,7 @@ Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 R
 Fe       0.00000000       0.00000000       0.00000000      -2.31905274      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000       0.05321503      -0.00000000      -0.00000000
 Fe       2.25000000       0.00000000       0.00000000       2.31905274       0.00000000       0.00000000      -1.50000000       0.00000000       0.00000000      -0.05321503      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.8412944885374013 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_0_spin_1 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.8412944885374014 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_0_spin_1 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -2.28061966      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000       0.05912781      -0.06610691      -0.00000000
 Fe       2.25000000       0.00000000       0.00000000       2.28061966       0.00000000       0.00000000      -1.66666667       1.86338998       0.00000000      -0.07095338      -0.00000000      -0.00000000
 2
@@ -15,7 +15,7 @@ Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 R
 Fe       0.00000000       0.00000000       0.00000000      -2.39887529      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000      -0.00000000      -0.05321503      -0.00000000
 Fe       2.25000000       0.00000000       0.00000000       2.39887529       0.00000000       0.00000000       0.00000000       1.50000000       0.00000000      -0.05321503      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=1.0186779321115587 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_0_spin_4 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=1.0186779321115584 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_0_spin_4 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -2.45800311      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000      -0.02956391      -0.08361936      -0.00000000
 Fe       2.25000000       0.00000000       0.00000000       2.45800311       0.00000000       0.00000000       0.83333333       2.35702260       0.00000000      -0.07095338      -0.00000000      -0.00000000
 2
@@ -111,27 +111,27 @@ Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 R
 Fe       0.00000000       0.00000000       0.00000000      -1.01706853      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000      -0.03691862      -0.00000000      -0.00000000
 Fe       2.61562500       0.00000000       0.00000000       1.01706853       0.00000000       0.00000000       1.50000000       0.00000000       0.00000000      -0.03691862      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.17470067922531482 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_0 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.17470067922531476 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_0 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.60016439      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000       0.05447090      -0.00000000      -0.00000000
 Fe       2.73750000       0.00000000       0.00000000       0.60016439       0.00000000       0.00000000      -2.50000000       0.00000000       0.00000000      -0.04357672      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.19648903797524378 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_1 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.19648903797524372 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_1 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.62195275      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000       0.02905114      -0.03248017      -0.00000000
 Fe       2.73750000       0.00000000       0.00000000       0.62195275       0.00000000       0.00000000      -1.33333333       1.49071198       0.00000000      -0.06536508      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.2673012039125129 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_2 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.26730120391251283 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_2 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.69276491      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000       0.01089418      -0.03081339      -0.00000000
 Fe       2.73750000       0.00000000       0.00000000       0.69276491       0.00000000       0.00000000      -0.50000000       1.41421356       0.00000000      -0.03268254      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.2836424729749596 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_3 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.28364247297495954 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_3 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.70910618      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000      -0.00000000      -0.05447090      -0.00000000
 Fe       2.73750000       0.00000000       0.00000000       0.70910618       0.00000000       0.00000000       0.00000000       2.50000000       0.00000000      -0.04357672      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.3272191904748175 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_4 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.32721919047481746 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_4 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.75268290      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000      -0.01452557      -0.04108452      -0.00000000
 Fe       2.73750000       0.00000000       0.00000000       0.75268290       0.00000000       0.00000000       0.66666667       1.88561808       0.00000000      -0.06536508      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.316325011099853 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_5 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.31632501109985295 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_4_spin_5 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.74178872      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000      -0.02178836      -0.02436013      -0.00000000
 Fe       2.73750000       0.00000000       0.00000000       0.74178872       0.00000000       0.00000000       1.00000000       1.11803399       0.00000000      -0.03268254      -0.00000000      -0.00000000
 2
@@ -143,7 +143,7 @@ Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 R
 Fe       0.00000000       0.00000000       0.00000000      -0.40713206      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000       0.03857668      -0.00000000      -0.00000000
 Fe       2.85937500       0.00000000       0.00000000       0.40713206       0.00000000       0.00000000      -2.00000000       0.00000000       0.00000000      -0.05786502      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.1802123327151583 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_1 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.18021233271515832 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_1 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.49392960      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000       0.01928834      -0.02156502      -0.00000000
 Fe       2.85937500       0.00000000       0.00000000       0.49392960       0.00000000       0.00000000      -1.00000000       1.11803399       0.00000000      -0.02893251      -0.00000000      -0.00000000
 2
@@ -151,27 +151,27 @@ Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 R
 Fe       0.00000000       0.00000000       0.00000000      -0.49071488      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000       0.01607362      -0.04546306      -0.00000000
 Fe       2.85937500       0.00000000       0.00000000       0.49071488       0.00000000       0.00000000      -0.83333333       2.35702260       0.00000000      -0.03857668      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.20914484435286151 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_3 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.20914484435286154 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_3 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.52286211      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000      -0.00000000      -0.03857668      -0.00000000
 Fe       2.85937500       0.00000000       0.00000000       0.52286211       0.00000000       0.00000000       0.00000000       2.00000000       0.00000000      -0.05786502      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.22361110017171312 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_4 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.22361110017171315 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_4 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.53732837      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000      -0.00964417      -0.02727783      -0.00000000
 Fe       2.85937500       0.00000000       0.00000000       0.53732837       0.00000000       0.00000000       0.50000000       1.41421356       0.00000000      -0.02893251      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.2734393146588686 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_5 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.27343931465886867 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_5 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.58715658      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000      -0.03214724      -0.03594170      -0.00000000
 Fe       2.85937500       0.00000000       0.00000000       0.58715658       0.00000000       0.00000000       1.66666667       1.86338998       0.00000000      -0.03857668      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.32487489090367433 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_6 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.3248748909036744 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_5_spin_6 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.63859216      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000      -0.03857668      -0.00000000      -0.00000000
 Fe       2.85937500       0.00000000       0.00000000       0.63859216       0.00000000       0.00000000       2.00000000       0.00000000       0.00000000      -0.05786502      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.11579458736698635 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_6_spin_0 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.11579458736698633 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_6_spin_0 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.34711519      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000       0.02561277      -0.00000000      -0.00000000
 Fe       2.98125000       0.00000000       0.00000000       0.34711519       0.00000000       0.00000000      -1.50000000       0.00000000       0.00000000      -0.02561277      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.09729647796191276 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_6_spin_1 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.09729647796191274 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_6_spin_1 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.32861708      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000       0.02845863      -0.03181772      -0.00000000
 Fe       2.98125000       0.00000000       0.00000000       0.32861708       0.00000000       0.00000000      -1.66666667       1.86338998       0.00000000      -0.03415036      -0.00000000      -0.00000000
 2
@@ -223,23 +223,23 @@ Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 R
 Fe       0.00000000       0.00000000       0.00000000      -0.35985498      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000      -0.03778989      -0.00000000      -0.00000000
 Fe       3.10312500       0.00000000       0.00000000       0.35985498       0.00000000       0.00000000       2.50000000       0.00000000       0.00000000      -0.03023191      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.003555340582590605 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_0 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.003555340582590577 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_0 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.12932217      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000       0.02676307      -0.00000000      -0.00000000
 Fe       3.22500000       0.00000000       0.00000000       0.12932217       0.00000000       0.00000000      -2.00000000       0.00000000       0.00000000      -0.04014461      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.06377225129097701 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_1 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.063772251290977 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_1 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.18953908      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000       0.01338154      -0.01496101      -0.00000000
 Fe       3.22500000       0.00000000       0.00000000       0.18953908       0.00000000       0.00000000      -1.00000000       1.11803399       0.00000000      -0.02007230      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.06154199533881454 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_2 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.06154199533881452 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_2 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.18730883      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000       0.01115128      -0.03154058      -0.00000000
 Fe       3.22500000       0.00000000       0.00000000       0.18730883       0.00000000       0.00000000      -0.83333333       2.35702260       0.00000000      -0.02676307      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.08384455486043914 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_3 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.08384455486043912 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_3 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.20961139      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000      -0.00000000      -0.02676307      -0.00000000
 Fe       3.22500000       0.00000000       0.00000000       0.20961139       0.00000000       0.00000000       0.00000000       2.00000000       0.00000000      -0.04014461      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.0938807066451702 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_4 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.09388070664517019 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_8_spin_4 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.21964754      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000      -0.00669077      -0.01892435      -0.00000000
 Fe       3.22500000       0.00000000       0.00000000       0.21964754       0.00000000       0.00000000       0.50000000       1.41421356       0.00000000      -0.02007230      -0.00000000      -0.00000000
 2
@@ -291,7 +291,7 @@ Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 R
 Fe       0.00000000       0.00000000       0.00000000      -0.10609857      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000       0.00524344      -0.01483070      -0.00000000
 Fe       3.46875000       0.00000000       0.00000000       0.10609857       0.00000000       0.00000000      -0.50000000       1.41421356       0.00000000      -0.01573033      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.04558549378263616 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_10_spin_3 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.045585493782636155 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_10_spin_3 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.11396373      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000      -0.00000000      -0.02621722      -0.00000000
 Fe       3.46875000       0.00000000       0.00000000       0.11396373       0.00000000       0.00000000       0.00000000       2.50000000       0.00000000      -0.02097378      -0.00000000      -0.00000000
 2
@@ -299,23 +299,23 @@ Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 R
 Fe       0.00000000       0.00000000       0.00000000      -0.13493751      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000      -0.00699126      -0.01977427      -0.00000000
 Fe       3.46875000       0.00000000       0.00000000       0.13493751       0.00000000       0.00000000       0.66666667       1.88561808       0.00000000      -0.03146067      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.06131582751238053 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_10_spin_5 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.061315827512380516 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_10_spin_5 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.12969407      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000      -0.01048689      -0.01172470      -0.00000000
 Fe       3.46875000       0.00000000       0.00000000       0.12969407       0.00000000       0.00000000       1.00000000       1.11803399       0.00000000      -0.01573033      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.09801993954845073 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_10_spin_6 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.09801993954845072 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_10_spin_6 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.16639818      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000      -0.02621722      -0.00000000      -0.00000000
 Fe       3.46875000       0.00000000       0.00000000       0.16639818       0.00000000       0.00000000       2.50000000       0.00000000       0.00000000      -0.02097378      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=-0.02208904391446382 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_11_spin_0 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=-0.022089043914463806 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_11_spin_0 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.02832991      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000       0.01856723      -0.00000000      -0.00000000
 Fe       3.59062500       0.00000000       0.00000000       0.02832991       0.00000000       0.00000000      -2.00000000       0.00000000       0.00000000      -0.02785084      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.01968721550225506 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_11_spin_1 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.019687215502255065 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_11_spin_1 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.07010617      -0.00000000      -0.00000000       1.50000000       0.00000000       0.00000000       0.00928361      -0.01037940      -0.00000000
 Fe       3.59062500       0.00000000       0.00000000       0.07010617       0.00000000       0.00000000      -1.00000000       1.11803399       0.00000000      -0.01392542      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.018139946634969175 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_11_spin_2 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.01813994663496918 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_11_spin_2 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.06855890      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000       0.00773634      -0.02188169      -0.00000000
 Fe       3.59062500       0.00000000       0.00000000       0.06855890       0.00000000       0.00000000      -0.83333333       2.35702260       0.00000000      -0.01856723      -0.00000000      -0.00000000
 2
@@ -331,7 +331,7 @@ Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 R
 Fe       0.00000000       0.00000000       0.00000000      -0.11497697      -0.00000000      -0.00000000       2.00000000       0.00000000       0.00000000      -0.01547269      -0.01729899      -0.00000000
 Fe       3.59062500       0.00000000       0.00000000       0.11497697       0.00000000       0.00000000       1.66666667       1.86338998       0.00000000      -0.01856723      -0.00000000      -0.00000000
 2
-Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.08931431453011987 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_11_spin_6 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3:REF_magmom:R:3:REF_magforces:R:3 REF_energy=0.08931431453011984 label_source="analytic Fe2 pair potential; eV and mu_B" config_type=r_11_spin_6 pbc="F F F"
 Fe       0.00000000       0.00000000       0.00000000      -0.13973327      -0.00000000      -0.00000000       3.00000000       0.00000000       0.00000000      -0.01856723      -0.00000000      -0.00000000
 Fe       3.59062500       0.00000000       0.00000000       0.13973327       0.00000000       0.00000000       2.00000000       0.00000000       0.00000000      -0.02785084      -0.00000000      -0.00000000
 2

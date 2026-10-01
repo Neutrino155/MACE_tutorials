@@ -1,5 +1,5 @@
 6
-Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_energy=-17.730505039645962 label_source="analytic fixed-charge Coulomb + O-O repulsion" config_type=water_dimer_valid_0 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_energy=-17.73050503964596 label_source="analytic fixed-charge Coulomb + O-O repulsion" config_type=water_dimer_valid_0 pbc="F F F"
 O        0.00000000       0.00000000       0.00000000       4.45410078      -1.03493250      -4.45955332
 H        0.49399896      -0.80645693      -0.14772975      -2.44460176       3.69591293       1.23563992
 H        0.36150808       0.62195798      -0.63143647      -1.93370009      -2.60641445       3.34357589
@@ -15,7 +15,7 @@ O        5.91334099       0.00000000       0.00000000       1.06015333       2.9
 H        6.64566548       0.55860614      -0.26056068      -3.26922555      -2.75434345       1.86649870
 H        5.35807263      -0.04632167      -0.77830790       2.21382409      -0.16974315       4.08471133
 6
-Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_energy=-17.62876891914031 label_source="analytic fixed-charge Coulomb + O-O repulsion" config_type=water_dimer_valid_2 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_energy=-17.628768919140317 label_source="analytic fixed-charge Coulomb + O-O repulsion" config_type=water_dimer_valid_2 pbc="F F F"
 O        0.00000000       0.00000000       0.00000000       1.84537694       0.03907450       6.41265630
 H        0.02596745       0.74649611       0.59858257      -0.33748410      -3.19371901      -3.36063006
 H        0.30006006      -0.74065876       0.52689695      -1.50403454       3.15467485      -3.05389407
@@ -87,7 +87,7 @@ O        3.31927088       0.00000000       0.00000000      -4.00822609      -5.5
 H        3.08614890      -0.55332565       0.74546409       1.61937576       3.06044946      -3.19620062
 H        2.87702864      -0.40423076      -0.74649255       2.43198336       2.47754940       3.08449407
 6
-Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_energy=-17.59494190824991 label_source="analytic fixed-charge Coulomb + O-O repulsion" config_type=water_dimer_valid_11 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_energy=-17.594941908249908 label_source="analytic fixed-charge Coulomb + O-O repulsion" config_type=water_dimer_valid_11 pbc="F F F"
 O        0.00000000       0.00000000       0.00000000      -3.49283611       4.08909263      -4.04074034
 H       -0.68644517      -0.24309054      -0.62123414       3.37681288       0.51071186       3.16060412
 H        0.07749606       0.95002708      -0.08760568       0.10039933      -4.58956082       0.88155133
@@ -119,7 +119,7 @@ O        4.52245223       0.00000000       0.00000000       6.31687560       1.4
 H        4.85265929       0.55748312       0.70456207      -2.19583348      -2.56732469      -3.16615947
 H        5.30877231      -0.31020301      -0.44911764      -4.14163098       1.13337223       1.74522927
 6
-Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_energy=-17.674949302550672 label_source="analytic fixed-charge Coulomb + O-O repulsion" config_type=water_dimer_valid_15 pbc="F F F"
+Properties=species:S:1:pos:R:3:REF_forces:R:3 REF_energy=-17.67494930255067 label_source="analytic fixed-charge Coulomb + O-O repulsion" config_type=water_dimer_valid_15 pbc="F F F"
 O        0.00000000       0.00000000       0.00000000      -3.04367012       1.26892258      -5.74272113
 H        0.40333442       0.37577812      -0.78252412      -1.20656844      -1.77432918       4.04820962
 H       -0.91192321      -0.15069185      -0.24883701       4.29547743       0.48799922       1.77481589

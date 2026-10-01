@@ -6,20 +6,31 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 DATA="$ROOT/MACE_extensions/data"
 PYTHON="${PYTHON:-python}"
-DEFAULT_SOURCE="$ROOT/../mace-field-develop"
-if [[ ! -f "$DEFAULT_SOURCE/mace/cli/run_train.py" ]]; then
-  DEFAULT_SOURCE="$ROOT/../mace-field"
-fi
-if [[ "$(basename "$0")" == "train_magnetic.sh" && -z "${MACEFIELD_ROOT:-}" ]]; then
-  MAGNETIC_SOURCE="$ROOT/../mace-field"
-  if [[ -f "$MAGNETIC_SOURCE/mace/modules/extensions.py" ]] && \
-     grep -q 'class MagneticScaleShiftMACE' "$MAGNETIC_SOURCE/mace/modules/extensions.py"; then
-    DEFAULT_SOURCE="$MAGNETIC_SOURCE"
-  fi
-fi
-SOURCE_ROOT="${MACEFIELD_ROOT:-$DEFAULT_SOURCE}"
+SOURCE_FEATURE="${SOURCE_FEATURE:-field}"
+case "$SOURCE_FEATURE" in
+  field)
+    SOURCE_ROOT="${MACEFIELD_ROOT:-$ROOT/../mace-field-develop}"
+    if [[ ! -d "$SOURCE_ROOT" && -z "${MACEFIELD_ROOT:-}" ]]; then
+      SOURCE_ROOT="$ROOT/../mace-field"
+    fi
+    export MACEFIELD_ROOT="$SOURCE_ROOT"
+    ;;
+  upstream|magnetic|les)
+    SOURCE_ROOT="${MACE_ROOT:-$ROOT/../mace-upstream-tutorial}"
+    if [[ ! -d "$SOURCE_ROOT" && -z "${MACE_ROOT:-}" ]]; then
+      SOURCE_ROOT="$ROOT/../mace-upstream-tutorial"
+      git clone --depth 1 --branch develop https://github.com/ACEsuit/mace.git "$SOURCE_ROOT"
+    fi
+    export MACE_ROOT="$SOURCE_ROOT"
+    ;;
+  *)
+    echo "SOURCE_FEATURE must be field, upstream, magnetic, or les." >&2
+    exit 2
+    ;;
+esac
 if [[ ! -f "$SOURCE_ROOT/mace/cli/run_train.py" ]]; then
-  echo "Set MACEFIELD_ROOT to a MACE-Field checkout from origin/develop containing mace/cli/run_train.py." >&2
+  echo "MACE source checkout not found at $SOURCE_ROOT; set MACEFIELD_ROOT or MACE_ROOT." >&2
   exit 2
 fi
+export SOURCE_FEATURE SOURCE_ROOT
 export PYTHONPATH="$SOURCE_ROOT${PYTHONPATH:+:$PYTHONPATH}"

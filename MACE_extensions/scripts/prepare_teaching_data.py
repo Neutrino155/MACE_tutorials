@@ -547,6 +547,46 @@ def water(angle_deg: float, bond: float = 0.9572) -> np.ndarray:
     )
 
 
+def water_intramolecular_energy_forces(
+    xyz: np.ndarray,
+    *,
+    bond_length: float = 0.9572,
+    angle_deg: float = 104.52,
+    bond_stiffness: float = 20.0,
+    angle_stiffness: float = 0.5,
+) -> tuple[float, np.ndarray]:
+    """Simple bonded water labels in eV and eV/Angstrom.
+
+    The training conformers use fixed-charge dipoles and a harmonic O-H/O-H
+    angle potential. This lightweight reference makes the data reusable for
+    energy/force-capable dipole models as well as the dipole-only model below.
+    """
+    xyz = np.asarray(xyz, dtype=float)
+    vectors = xyz[1:] - xyz[0]
+    lengths = np.linalg.norm(vectors, axis=1)
+    unit = vectors / lengths[:, None]
+    cosine = float(np.clip(np.dot(unit[0], unit[1]), -1.0, 1.0))
+    angle = float(np.arccos(cosine))
+    target_angle = np.deg2rad(angle_deg)
+
+    bond_delta = lengths - bond_length
+    angle_delta = angle - target_angle
+    energy = 0.5 * bond_stiffness * float(np.dot(bond_delta, bond_delta))
+    energy += 0.5 * angle_stiffness * angle_delta**2
+
+    gradient = bond_stiffness * bond_delta[:, None] * unit
+    sine = max(float(np.sin(angle)), 1.0e-12)
+    d_angle_dv1 = -(unit[1] - cosine * unit[0]) / (lengths[0] * sine)
+    d_angle_dv2 = -(unit[0] - cosine * unit[1]) / (lengths[1] * sine)
+    gradient[0] += angle_stiffness * angle_delta * d_angle_dv1
+    gradient[1] += angle_stiffness * angle_delta * d_angle_dv2
+
+    forces = np.zeros_like(xyz)
+    forces[1:] = -gradient
+    forces[0] = gradient.sum(axis=0)
+    return float(energy), forces
+
+
 def write_frames(name: str, train: list[Atoms], valid: list[Atoms]) -> None:
     DATA.mkdir(parents=True, exist_ok=True)
     for split, frames in (("train", train), ("valid", valid)):
@@ -569,7 +609,13 @@ def dipole_frames(rng: np.random.Generator) -> tuple[list[Atoms], list[Atoms]]:
                 xyz = xyz @ rotation.T + rng.uniform(-1.5, 1.5, size=3)
                 atoms = Atoms("OHH", positions=xyz, pbc=False)
                 atoms.info["REF_dipoles"] = np.sum(charges[:, None] * xyz, axis=0)
-                atoms.info["label_source"] = "analytic neutral fixed charges; e Angstrom"
+                energy, forces = water_intramolecular_energy_forces(xyz)
+                atoms.info["REF_energy"] = energy
+                atoms.new_array("REF_forces", forces)
+                atoms.info["label_source"] = (
+                    "analytic fixed-charge dipole and harmonic water energy/forces; "
+                    "e Angstrom, eV, eV/Angstrom"
+                )
                 atoms.info["config_type"] = f"water_angle_{ia}_bond_{ib}"
                 target.append(atoms)
     return train, valid
@@ -625,7 +671,19 @@ def field_frames(rng: np.random.Generator) -> tuple[list[Atoms], list[Atoms]]:
         np.array([-0.01, -0.01, 0.0]),
         np.array([0.01, 0.01, 0.0]),
     ]
-    d_train = np.linspace(-0.22, 0.22, 11)
+    # Retain broad coverage while resolving the ferroelectric minima and the
+    # approximate field spinodal coordinates. These are high-curvature points
+    # for the BEC and susceptibility curves, so a uniform 11-point grid alone
+    # leaves the displayed domain minima between response labels.
+    d_train = np.unique(np.concatenate((
+        np.linspace(-0.22, 0.22, 11),
+        np.array([
+            -BTO_MODE_D0,
+            -BTO_MODE_D0 / np.sqrt(3.0),
+            BTO_MODE_D0 / np.sqrt(3.0),
+            BTO_MODE_D0,
+        ]),
+    )))
     # Interleave validation displacements with the training grid without
     # repeating d=0 (or any full structure/field/strain combination).
     d_valid = np.linspace(-0.21, 0.21, 8)

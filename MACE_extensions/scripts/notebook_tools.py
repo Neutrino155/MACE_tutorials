@@ -69,7 +69,7 @@ def show_source_hits(obj, needles, context: int = 5, max_chars: int = 12000) -> 
 
 
 def read_source(relative_path: str, start: int, stop: int, *, root: str | Path) -> None:
-    """Display a numbered source range from the installed MACE-Field checkout."""
+    """Display a numbered source range from the selected MACE checkout."""
     path = Path(root) / relative_path
     lines = path.read_text(encoding="utf-8").splitlines()
     if start < 1 or stop < start or start > len(lines):
@@ -84,6 +84,9 @@ def train_mace(config: dict) -> Path:
     import yaml
 
     config = dict(config)
+    # The notebooks make their own compact figures; skip MACE CLI plotting for
+    # extension-specific metrics that some legacy plotters cannot handle.
+    config.setdefault("plot", False)
     model_dir = Path(config["model_dir"]).expanduser().resolve()
     model_dir.mkdir(parents=True, exist_ok=True)
     config["model_dir"] = str(model_dir)
@@ -116,6 +119,8 @@ def train_mace(config: dict) -> Path:
     seed = config.get("seed", 123)
     tag = f"{config['name']}_run-{seed}"
     debug_log = Path(config["log_dir"]) / f"{tag}_debug.log"
+    stderr_log = Path(config["log_dir"]) / f"{tag}_stderr.log"
+    stderr_log.parent.mkdir(parents=True, exist_ok=True)
     offset = debug_log.stat().st_size if debug_log.exists() else 0
     command = [
         sys.executable,
@@ -124,7 +129,10 @@ def train_mace(config: dict) -> Path:
         "--config",
         str(config_path),
     ]
-    process = subprocess.Popen(command, env=environment, stdout=subprocess.DEVNULL)
+    with stderr_log.open("wb") as stderr_file:
+        process = subprocess.Popen(
+            command, env=environment, stdout=subprocess.DEVNULL, stderr=stderr_file
+        )
 
     def stream_new_log_content() -> None:
         nonlocal offset
@@ -152,7 +160,13 @@ def train_mace(config: dict) -> Path:
             process.wait()
         raise
     if process.returncode:
-        raise subprocess.CalledProcessError(process.returncode, command)
+        stderr_text = stderr_log.read_text(encoding="utf-8", errors="replace")
+        error = subprocess.CalledProcessError(
+            process.returncode, command, stderr=stderr_text
+        )
+        stderr_tail = "\n".join(stderr_text.splitlines()[-30:])
+        error.add_note(f"Captured CLI stderr (last 30 lines; full log: {stderr_log}):\n{stderr_tail}")
+        raise error
     return config_path
 
 

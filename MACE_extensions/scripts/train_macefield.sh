@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+SOURCE_FEATURE=field
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
-"$PYTHON" "$ROOT/MACE_extensions/scripts/bootstrap.py" --feature="base"
+"$PYTHON" "$ROOT/MACE_extensions/scripts/bootstrap.py" --feature="$SOURCE_FEATURE" --source-root="$SOURCE_ROOT"
 OUT="${OUT_DIR:-$ROOT/MACE_extensions/models/macefield}"
 mkdir -p "$OUT"
 INITIAL_MODEL_ARGS=()
